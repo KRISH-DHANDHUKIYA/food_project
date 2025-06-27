@@ -6,7 +6,7 @@ function App() {
     const [expanded, setExpanded] = useState(false);
     return (
         <>
-            <Navbar expand="lg" className="bg-dark py-3" sticky="top" expanded={expanded} onToggle={() => setExpanded(!expanded)}>
+            <Navbar expand="lg" className="bg-dark py-3 px-5"  sticky="top" expanded={expanded} onToggle={() => setExpanded(!expanded)}>
                 <Container fluid>
                     <Link to="/" className="text-decoration-none">
                         <Navbar.Brand className="text-light header1">FoodExpress</Navbar.Brand>
@@ -24,7 +24,7 @@ function App() {
                                 Contact Us
                             </Link>
                         </Nav>
-                        <div className="d-grid gap-3 d-lg-flex ms-lg-3" style={{ minWidth: "200px" }}>
+                        <div className="d-grid gap-3 d-lg-flex ms-lg-3" >
                             <Button variant="primary" className="w-lg-auto me-lg-2">
                                 Items <Badge bg="light" text="dark">3</Badge>
                                 <span className="visually-hidden">unread messages</span>
