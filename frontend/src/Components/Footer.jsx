@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <div className="container-fluid text-white p-0 Footer bg-dark">
+    <div className="container-fluid text-white px-5 pt-5 bg-dark">
       <footer className="text-center text-lg-start">
-        <Container className="p-4 pb-0">
+        <Container className=" pb-0">
           <section>
             <Row className="py-5 gy-4">
               <Col xs={12} md={6} lg={4} className="text-center text-lg-start">
@@ -50,7 +50,7 @@ const Footer = () => {
           </section>
         </Container>
 
-        <Container className="px-4">
+        <Container fluid className="px-4">
           <hr className="text-white opacity-50 mx-auto" style={{ maxWidth: '1140px' }} />
         </Container>
 
