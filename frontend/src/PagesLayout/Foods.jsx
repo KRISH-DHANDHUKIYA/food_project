@@ -17,7 +17,7 @@ const Foods = () => {
         if (foods && foods.length > 0) {
             const data = foods.filter((item) => item.popular);
             setPopularFoods(data.slice(0, 6));
-            //  console.log(foods);
+            console.log(foods);
         }
     }, [foods]);
 
@@ -25,29 +25,27 @@ const Foods = () => {
         <section className="py-5">
             <Container>
                 <Title title1="POPULAR" title2="FOODS" titleStyles="text-center mb-4" paraStyles="d-block" />
+                <OwlCarousel
+                    className="owl-theme"
+                    autoplay
+                    autoplayTimeout={3500}
+                    loop
+                    nav={false}
+                    responsive={{
+                        0: { items: 1 },
+                        768: { items: 2 },
+                        992: { items: 3 },
+                        1200: { items: 4 }
+                    }}
+                    key={popularFoods.length}
+                >
+                    {popularFoods.map((food) => (
+                        <div key={food._id} className="px-3">
+                            <Item food={food} />
+                        </div>
+                    ))}
+                </OwlCarousel>
 
-                {popularFoods.length > 0 && (
-                    <OwlCarousel
-                        className="owl-theme"
-                        autoPlay
-                        autoplayTimeout={3500}
-                        loop
-                        nav
-                        responsive={{
-                            0: { items: 1 },
-                            768: { items: 2 },
-                            992: { items: 3 },
-                            1200: { items: 4 }
-                        }}
-                        key={popularFoods.length}
-                    >
-                        {popularFoods.map((food) => (
-                            <div key={food._id} className="px-3">
-                                <Item food={food} />
-                            </div>
-                        ))}
-                    </OwlCarousel>
-                )}
             </Container>
         </section>
     );
