@@ -22,7 +22,7 @@ const Foods = () => {
     }, [foods]);
 
     return (
-        <section className="py-5 bg-light">
+        <section className="py-5">
             <Container>
                 <Title title1="POPULAR" title2="FOODS" titleStyles="text-center mb-4" paraStyles="d-block" />
 
