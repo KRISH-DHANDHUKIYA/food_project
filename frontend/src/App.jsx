@@ -21,6 +21,7 @@ function App() {
           <Route path="/contactus" element={<Contactus />} />
           <Route path="/card" element={<Card />} />
           <Route path="/login" element={<Login />} />
+        
           <Route path="/placeorder" element={<Placeorder />} />
           <Route path="/order" element={<Orders />} />
           <Route path="/verify" element={<Verify />} />

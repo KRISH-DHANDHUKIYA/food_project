@@ -120,6 +120,12 @@
   padding-right: 1.5rem;
 }
 
+.nav-link.active {
+  font-weight: bold;
+  border-bottom: 2px solid #ffc107;
+}
+
+
 @media (min-width: 1024px) {
   .max-padd-container {
     padding-left: 3rem;

@@ -45,7 +45,6 @@ const Foods = () => {
                         </div>
                     ))}
                 </OwlCarousel>
-
             </Container>
         </section>
     );
