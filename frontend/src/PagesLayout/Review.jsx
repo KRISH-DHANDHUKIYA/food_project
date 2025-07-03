@@ -24,8 +24,10 @@ const Review = () => {
                                 </div>
                             </div>
                         </Col>
+
                         <Col lg={8}>
                             <Row xs={1} sm={2} className="g-4">
+
                                 <Col>
                                     <Card className="h-100 bg-white shadow-sm p-3">
                                         <Card.Body>
@@ -72,7 +74,7 @@ const Review = () => {
                                             </div>
                                             <h5 className="fw-bold">Tasty Flavour</h5>
                                             <p className="text-muted">
-                                                The food was incredibly delicious! Each bite was packed with vibrant flavors and exceptional quality. The service was fast, and everything arrived fresh and perfectly prepared. I highly recommend giving it a try!
+                                                The food was incredibly delicious! Each bite was packed with vibrant  ingredients to ensure rich flavors and outs flavors and exceptional quality. The service was fast, and everything arrived fresh and perfectly prepared. I highly recommend giving it a try!
                                             </p>
                                             <div className="d-flex gap-2 mt-3">
                                                 <Image src={food1} alt="Food 1" rounded width={44} height={44} style={{ objectFit: 'cover' }} />
@@ -81,6 +83,7 @@ const Review = () => {
                                         </Card.Body>
                                     </Card>
                                 </Col>
+
                             </Row>
                         </Col>
                     </Row>

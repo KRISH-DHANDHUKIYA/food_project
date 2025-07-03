@@ -12,7 +12,7 @@ const Item = ({ food }) => {
     return (
         <Card
             className="text-center position-relative border-0 mb-4"
-            style={{ borderRadius: "20px", backgroundColor: "#eaf8dc", paddingTop: "80px", overflow: "hidden", minHeight: "400px", }}>
+            style={{ borderRadius: "20px", backgroundColor: "#eaf8dc", paddingTop: "80px", overflow: "hidden", minHeight: "450px", }}>
             <div
                 className="position-absolute top-0 start-50 translate-middle"
                 style={{ zIndex: 1, marginTop: "80px" }}>
@@ -36,7 +36,7 @@ const Item = ({ food }) => {
                 </div>
 
                 <p className="text-muted small mb-3"
-                    style={{ height: "2.5em", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    style={{ height: "5.5em", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {food.description}
                 </p>
 

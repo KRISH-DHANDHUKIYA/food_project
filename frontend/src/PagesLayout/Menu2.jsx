@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Container, Row, Col, Form, InputGroup, Button, } from "react-bootstrap";
+import { Container, Row, Col, Form, InputGroup, Button } from "react-bootstrap";
 import { RiSearch2Line } from "react-icons/ri";
 import { LuSettings2 } from "react-icons/lu";
 import { ShopContext } from "../Context/ShopContext";
@@ -15,8 +15,6 @@ const Menu1 = () => {
     const [filterFoods, SetFilterFoods] = useState([]);
     const [showCategories, SetShowCategories] = useState(true);
     const [search, setSearch] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemPerPage = 10;
 
     const toggleFilter = (value, setState) => {
         setState((prev) =>
@@ -33,17 +31,18 @@ const Menu1 = () => {
                 food.name.toLowerCase().includes(search.toLowerCase())
             );
         }
+
         if (category.length) {
             filtered = filtered.filter((food) => category.includes(food.category));
         }
+
         return filtered;
     };
 
     const applySorting = (foodList) => {
-        const sortedFoodes = [...foodList] //create a copy the array
         switch (sortType) {
             case "low":
-                return sortedFoodes .sort((a, b) => a.price - b.price);
+                return foodList.sort((a, b) => a.price - b.price);
             case "high":
                 return foodList.sort((a, b) => b.price - a.price);
             default:
@@ -59,16 +58,7 @@ const Menu1 = () => {
         let filtered = applyFilters();
         let sorted = applySorting(filtered);
         SetFilterFoods(sorted);
-        setCurrentPage(1);
     }, [category, sortType, foods, search]);
-
-    const getPaginationFoods = () => {
-        const startIndex = (currentPage - 1) * itemPerPage;
-        const endIndex = startIndex + itemPerPage;
-        return filterFoods.slice(startIndex, endIndex);
-    };
-
-    const totalPages = Math.ceil(filterFoods.length / itemPerPage);
 
     return (
         <section className="py-5">
@@ -90,7 +80,7 @@ const Menu1 = () => {
                             <Button
                                 variant="outline-light"
                                 onClick={toogleShowCategories}
-                                className="bg-white text-dark border border-2 rounded-pill"
+                                className="bg-white text-dark border border-2 rounded-full"
                             >
                                 <LuSettings2 />
                             </Button>
@@ -101,6 +91,35 @@ const Menu1 = () => {
                 {/* Category Filter */}
                 {showCategories && (
                     <Row className="mb-5">
+                        {/* <Col>
+                            <h5 className="mb-3">Select by Category</h5>
+                            <div className="d-flex flex-wrap gap-3">
+                                {categories.map((cat) => (
+                                    <Form.Check key={cat.name} type="checkbox" id={cat.name} className="d-flex align-items-center">
+                                        <Form.Check.Input
+                                            type="checkbox"
+                                            value={cat.name}
+                                            onChange={(e) =>
+                                                toggleFilter(e.target.value, SetCategory)
+                                            }
+                                            className="me-2"
+                                        />
+                                        <div
+                                            className="d-flex align-items-center bg-light px-3 py-2 rounded-pill"
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            <img
+                                                src={cat.image}
+                                                alt={cat.name}
+                                                className="me-2 rounded-circle"
+                                                style={{ height: "60px", width: "60px", objectFit: "cover" }}
+                                            />
+                                            <span>{cat.name}</span>
+                                        </div>
+                                    </Form.Check>
+                                ))}
+                            </div>
+                        </Col> */}
                         <Col>
                             <h5 className="mb-3">Select by Category</h5>
                             <div className="d-flex flex-wrap gap-3">
@@ -111,7 +130,7 @@ const Menu1 = () => {
                                             key={cat.name}
                                             role="button"
                                             onClick={() => toggleFilter(cat.name, SetCategory)}
-                                            className={`d-flex align-items-center bg-light px-3 py-2 rounded-pill ${isChecked ? "border border-danger text-danger" : ""}`}
+                                            className={`d-flex align-items-center bg-light px-3 py-2 rounded-pill ${isChecked ? 'border border-danger text-danger' : ''}`}
                                             style={{ cursor: "pointer" }}
                                         >
                                             <img
@@ -149,8 +168,8 @@ const Menu1 = () => {
 
                 {/* Food Grid */}
                 <Row className="g-4">
-                    {getPaginationFoods().length > 0 ? (
-                        getPaginationFoods().map((food) => (
+                    {filterFoods && filterFoods.length > 0 ? (
+                        filterFoods.map((food) => (
                             <Col xs={12} sm={6} lg={4} xl={3} key={food._id}>
                                 <Item food={food} />
                             </Col>
@@ -159,34 +178,6 @@ const Menu1 = () => {
                         <p className="text-muted">No foods found for selected filters.</p>
                     )}
                 </Row>
-
-                {/* Pagination */}
-                <div className="d-flex justify-content-center mt-4 gap-2 flex-wrap">
-                    <Button
-                        disabled={currentPage === 1}
-                        onClick={() => setCurrentPage((prev) => prev - 1)}
-                        className="btn btn-secondary px-3 py-1"
-                    >
-                        Previous
-                    </Button>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <Button
-                            key={index + 1}
-                            onClick={() => setCurrentPage(index + 1)}
-                            variant={currentPage === index + 1 ? "dark" : "outline-secondary"}
-                            className="px-3 py-1"
-                        >
-                            {index + 1}
-                        </Button>
-                    ))}
-                    <Button
-                        disabled={currentPage === totalPages}
-                        onClick={() => setCurrentPage((prev) => prev + 1)}
-                        className="btn btn-secondary px-3 py-1"
-                    >
-                        Next
-                    </Button>
-                </div>
             </Container>
         </section>
     );

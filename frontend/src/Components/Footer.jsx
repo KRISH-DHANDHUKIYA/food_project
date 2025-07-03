@@ -10,7 +10,7 @@ const Footer = () => {
 
               <Col xs={12} md={6} lg={5} >
                 <h6 className="fs-2 mb-3">About Us</h6>
-                <p>
+                <p className="text-light">
                   Delivering happiness one bite at a time. From fresh ingredients to fast delivery, we are committed to serving you the tastiest meals right at your doorstep.
                   At FoodExpress, quality is our promise — every dish is crafted with care, using locally sourced produce and authentic recipes.
                 </p>
