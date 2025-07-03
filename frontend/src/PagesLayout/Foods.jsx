@@ -17,7 +17,7 @@ const Foods = () => {
         if (foods && foods.length > 0) {
             const data = foods.filter((item) => item.popular);
             setPopularFoods(data.slice(0, 6));
-            console.log(foods);
+            // console.log(foods);
         }
     }, [foods]);
 

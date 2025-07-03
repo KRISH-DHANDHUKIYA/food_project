@@ -5,7 +5,7 @@ const Title = ({ title1, title2, titleStyles, title1Styles, paraStyles }) => {
                 {title1} <span style={{ color: "rgb(73, 145, 0)" }}>{title2}</span>
             </h2>
             <p className={`text-muted d-none d-md-block ${paraStyles}`}>
-                Our food products are crafted to deliver exceptional taste and quality.
+                Customer satisfaction drives us — from prompt delivery to mouth-watering flavors, we make every meal memorable.
             </p>
         </div>
     );

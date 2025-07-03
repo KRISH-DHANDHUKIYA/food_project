@@ -15,7 +15,7 @@ const Item = ({ food }) => {
             style={{ borderRadius: "20px", backgroundColor: "#eaf8dc", paddingTop: "80px", overflow: "hidden", minHeight: "400px", }}>
             <div
                 className="position-absolute top-0 start-50 translate-middle"
-                style={{ zIndex: 1, marginTop: "70px" }}>
+                style={{ zIndex: 1, marginTop: "80px" }}>
                 <Image fluid src={food.image} alt={food.name} className="rounded-circle"
                     style={{
                         width: "120px", height: "120px", objectFit: "cover", backgroundColor: "#fff", padding: "6px",

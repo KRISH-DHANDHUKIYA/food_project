@@ -21,7 +21,7 @@ const Home2 = () => {
                                     <h5 className="fw-bold">Fast Delivery</h5>
                                     <hr className="mx-auto my-2" style={{ width: "2rem", height: "4px", backgroundColor: "#6c63ff", border: "none", borderRadius: "1rem", }} />
                                     <p className="text-muted small">
-                                        Get your order quickly with our reliable and efficient service
+                                        Experience swift delivery that brings your favorite dishes right to your doorstep
                                     </p>
                                 </div>
                             </Card.Body>
@@ -36,7 +36,7 @@ const Home2 = () => {
                                     <h5 className="fw-bold">Hot Delivery</h5>
                                     <hr className="mx-auto my-2" style={{ width: "2rem", height: "4px", backgroundColor: "#6c63ff", border: "none", borderRadius: "1rem", }} />
                                     <p className="text-muted small">
-                                        Receive your order warm and ready to savor with our speedy hot delivery
+                                        Enjoy your meals fresh and hot, delivered quickly right to your door.
                                     </p>
                                 </div>
                             </Card.Body>
@@ -51,7 +51,7 @@ const Home2 = () => {
                                     <h5 className="fw-bold">Fresh Foods</h5>
                                     <hr className="mx-auto my-2" style={{ width: "2rem", height: "4px", backgroundColor: "#6c63ff", border: "none", borderRadius: "1rem", }} />
                                     <p className="text-muted small">
-                                        We serve meals made from the freshest and finnest ingredients daily
+                                        Freshness and quality are at the heart of every meal we serve each day.
                                     </p>
                                 </div>
                             </Card.Body>
@@ -66,7 +66,7 @@ const Home2 = () => {
                                     <h5 className="fw-bold">Expert Chefs</h5>
                                     <hr className="mx-auto my-2" style={{ width: "2rem", height: "4px", backgroundColor: "#6c63ff", border: "none", borderRadius: "1rem", }} />
                                     <p className="text-muted small">
-                                        Our skilled chefs craft every dish with passion and precision
+                                        Our dedicated chefs prepare each meal with artistry and the finest ingredients.
                                     </p>
                                 </div>
                             </Card.Body>

@@ -1,7 +1,9 @@
+import Menu1 from "../PagesLayout/Menu1"
+
 const Menu = () => {
     return (
         <>
-            <h1>menu</h1>
+            <Menu1 />
         </>
     )
 }

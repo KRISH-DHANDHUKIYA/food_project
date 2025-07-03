@@ -62,63 +62,58 @@ import { useState } from "react";
 import { Badge, Button, Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
-function AppHeader() {
+function App() {
+
     const [expanded, setExpanded] = useState(false);
 
-    const navLinkClass = "text-decoration-none px-3 py-2 text-light";
-
     return (
-        <Navbar expand="lg" bg="dark" variant="dark" sticky="top" expanded={expanded} className="py-3 shadow-sm">
-            <Container>
-                {/* Brand */}
-                <NavLink to="/" className="text-decoration-none">
-                    <Navbar.Brand className="text-light fw-bold fs-4">FoodExpress</Navbar.Brand>
-                </NavLink>
+        <>
+            <Navbar expand="lg" bg="dark" variant="dark" sticky="top" expanded={expanded} className="py-3 shadow-sm">
+                <Container>
+                    <NavLink to="/" className="text-decoration-none">
+                        <Navbar.Brand className="text-light fw-bold fs-4">FoodExpress</Navbar.Brand>
+                    </NavLink>
 
-                {/* Mobile Cart Button */}
-                <div className="d-lg-none d-flex align-items-center me-2">
-                    <Button variant="primary" className="py-1 px-2">
-                        Items <Badge bg="light" text="dark">3</Badge>
-                    </Button>
-                </div>
-
-                {/* Navbar Toggle */}
-                <Navbar.Toggle
-                    aria-controls="navbarScroll"
-                    className="bg-light"
-                    onClick={() => setExpanded(!expanded)}
-                />
-
-                {/* Navbar Links */}
-                <Navbar.Collapse id="navbarScroll">
-                    <Nav className="m-auto my-3 my-lg-0 text-center">
-                        <NavLink to="/" className={navLinkClass} onClick={() => setExpanded(false)}>
-                            Home
-                        </NavLink>
-                        <NavLink to="/menu" className={navLinkClass} onClick={() => setExpanded(false)}>
-                            Menu
-                        </NavLink>
-                        <NavLink to="/contactus" className={navLinkClass} onClick={() => setExpanded(false)}>
-                            Contact Us
-                        </NavLink>
-
-                        {/* Login button (mobile only) */}
-                        <div className="d-lg-none mt-3">
-                            <Button variant="danger" className="w-100">Login</Button>
-                        </div>
-                    </Nav>
-
-                    {/* Cart and Login (desktop only) */}
-                    <div className="d-none d-lg-flex align-items-center ms-lg-3">
-                        <Button variant="primary" className="me-2">
+                    <div className="d-lg-none d-flex align-items-center me-2">
+                        <Button variant="primary" className="py-1 px-2">
                             Items <Badge bg="light" text="dark">3</Badge>
                         </Button>
-                        <Button variant="danger">Login</Button>
                     </div>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+
+                    <Navbar.Toggle
+                        aria-controls="navbarScroll"
+                        className="bg-dark"
+                        onClick={() => setExpanded(!expanded)}
+                    />
+
+                    <Navbar.Collapse id="navbarScroll">
+                        <Nav className="m-auto my-3 my-lg-0 text-center">
+                            <NavLink to="/" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+                                Home
+                            </NavLink>
+                            <NavLink to="/menu" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+                                Menu
+                            </NavLink>
+                            <NavLink to="/contactus" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+                                Contact Us
+                            </NavLink>
+
+                            <div className="d-lg-none mt-3">
+                                <Button variant="danger" className="w-100">Login</Button>
+                            </div>
+                        </Nav>
+
+                        <div className="d-none d-lg-flex align-items-center ms-lg-3">
+                            <Button variant="primary" className="me-2">
+                                Items <Badge bg="light" text="dark">3</Badge>
+                            </Button>
+                            <Button variant="danger">Login</Button>
+                        </div>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        </>
     );
 }
 
-export default AppHeader;
+export default App
