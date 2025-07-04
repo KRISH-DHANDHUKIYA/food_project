@@ -58,21 +58,24 @@
 
 // export default App;
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Badge, Button, Container, Nav, Navbar } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ShopContext } from "../Context/ShopContext";
 
 function App() {
 
     const [expanded, setExpanded] = useState(false);
 
+    const { getCartCount } = useContext(ShopContext)
+
     return (
         <>
             <Navbar expand="lg" bg="dark" variant="dark" sticky="top" expanded={expanded} className="py-3 shadow-sm">
                 <Container>
-                    <NavLink to="/" className="text-decoration-none">
+                    <Link to="/" className="text-decoration-none">
                         <Navbar.Brand className="text-light fw-bold fs-4">FoodExpress</Navbar.Brand>
-                    </NavLink>
+                    </Link>
 
                     <div className="d-lg-none d-flex align-items-center me-2">
                         <Button variant="primary" className="py-1 px-2">
@@ -88,15 +91,15 @@ function App() {
 
                     <Navbar.Collapse id="navbarScroll">
                         <Nav className="m-auto my-3 my-lg-0 text-center">
-                            <NavLink to="/" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+                            <Link to="/" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
                                 Home
-                            </NavLink>
-                            <NavLink to="/menu" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+                            </Link>
+                            <Link to="/menu" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
                                 Menu
-                            </NavLink>
-                            <NavLink to="/contactus" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+                            </Link>
+                            <Link to="/contactus" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
                                 Contact Us
-                            </NavLink>
+                            </Link>
 
                             <div className="d-lg-none mt-3">
                                 <Button variant="danger" className="w-100">Login</Button>
@@ -104,9 +107,9 @@ function App() {
                         </Nav>
 
                         <div className="d-none d-lg-flex align-items-center ms-lg-3">
-                            <Button variant="primary" className="me-2">
-                                Items <Badge bg="light" text="dark">3</Badge>
-                            </Button>
+                            <Link to="/cart"><Button variant="primary" className="me-2">
+                                Cart <Badge bg="light" text="dark">{getCartCount()}</Badge>
+                            </Button></Link>
                             <Button variant="danger">Login</Button>
                         </div>
                     </Navbar.Collapse>

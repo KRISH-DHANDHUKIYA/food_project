@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Card, Button, Image, ButtonGroup } from "react-bootstrap";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { TbShoppingBagPlus } from "react-icons/tb";
@@ -6,7 +6,7 @@ import { ShopContext } from "../Context/ShopContext";
 
 const Item = ({ food }) => {
 
-    const { currency } = useContext(ShopContext);
+    const { currency, addToCart } = useContext(ShopContext);
     const [size, setSize] = useState(food.sizes[0]);
 
     return (
@@ -53,7 +53,7 @@ const Item = ({ food }) => {
                         ))}
                     </ButtonGroup>
 
-                    <Button variant="success" className="p-2 rounded-2" aria-label="Add to Cart">
+                    <Button onClick={() => addToCart(food._id,size)} variant="success" className="p-2 rounded-2" aria-label="Add to Cart">
                         <TbShoppingBagPlus size={18} color="#fff" />
                     </Button>
 
