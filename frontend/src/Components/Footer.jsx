@@ -28,7 +28,7 @@ const Footer = () => {
                   </InputGroup>
                 </Form>
 
-                <div className="d-flex justify-content-center justify-content-md-start text-center flex-wrap gap-2 mt-3">
+                <div className="d-flex justify-content-center justify-content-md-start text-center flex-wrap gap-2 mt-3 mb-4">
                   <Button variant="outline-light" className="border-2 rounded-circle p-2 d-flex align-items-center justify-content-center"
                     style={{ width: '40px', height: '40px' }} href="https://www.facebook.com/" target="_blank">
                     <i className="fab fa-facebook-f" />
@@ -80,7 +80,13 @@ const Footer = () => {
             </Row>
           </Container>
 
-         
+          <Container fluid className="px-0">
+            <hr className="text-white opacity-50 mx-auto" style={{ maxWidth: "1140px" }} />
+          </Container>
+
+          <div className="text-center py-3 small">
+            © 2025 <span className="fw-bold text-white">FoodExpress</span> All rights reserved
+          </div>
 
         </footer>
       </div>
