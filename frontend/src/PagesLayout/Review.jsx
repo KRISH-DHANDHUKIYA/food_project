@@ -1,15 +1,15 @@
-import { Container, Row, Col, Card, Image, Badge } from "react-bootstrap";
-import { FaCheck, FaStar } from "react-icons/fa6";
-import Title from "./Title";
-import user1 from "../assets/testimonials/user1.png";
-import user2 from "../assets/testimonials/user2.png";
-import food1 from "../assets/food_1.png";
-import food2 from "../assets/food_2.png";
+// import { Container, Row, Col, Card, Image, Badge } from "react-bootstrap";
+// import { FaCheck, FaStar } from "react-icons/fa6";
+// import Title from "./Title";
+// import user1 from "../assets/testimonials/user1.png";
+// import user2 from "../assets/testimonials/user2.png";
+// import food1 from "../assets/food_1.png";
+// import food2 from "../assets/food_2.png";
 
 const Review = () => {
     return (
         <>
-            <div className="py-5 bg-light">
+            {/* <div className="py-5 bg-light">
                 <Container>
                     <Title title1={"DELICIOUS"} title2={"REVIEWS"} titleStyles="text-center mb-5" paraStyles="d-block" />
                     <Row className="g-5">
@@ -88,7 +88,7 @@ const Review = () => {
                         </Col>
                     </Row>
                 </Container>
-            </div>
+            </div> */}
         </>
 
     )

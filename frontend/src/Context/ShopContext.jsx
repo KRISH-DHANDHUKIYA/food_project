@@ -7,7 +7,7 @@ export const ShopContext = createContext()
 export const ShopContextProvider = (props) => {
 
     const currency = "$"
-    const delivery_chargers = 10
+    const  delivery_charges = 10
     const navigate = useNavigate()
 
     const [cartItems, setCartItems] = useState({})
@@ -61,7 +61,28 @@ export const ShopContextProvider = (props) => {
         setCartItems(cartData)
     }
 
-    const contextValue = { foods, currency, delivery_chargers, navigate, addToCart, getCartCount, cartItems, updateQuantity };
+    // getting cart amount
+
+    const getCartAmount = () => {
+        let totalAmount = 0
+
+        for (const items in cartItems) {
+            let filtered = foods.find((food) => food._id === items)
+            for (const item in cartItems[items]) {
+                try {
+                    if (cartItems[items][item] > 0) {
+                        totalAmount += filtered.price[item] * cartItems[items][item]
+                    }
+                }
+                catch (error) {
+                    console.log(error)
+                }
+            }
+        }
+        return totalAmount
+    }
+
+    const contextValue = { foods, currency,  delivery_charges , navigate, addToCart, getCartCount, cartItems, updateQuantity, getCartAmount };
 
     return (
         <>

@@ -12,7 +12,6 @@ const Footer = () => {
                 <h6 className="fs-2 mb-3">About Us</h6>
                 <p className="text-light">
                   Delivering happiness one bite at a time. From fresh ingredients to fast delivery, we are committed to serving you the tastiest meals right at your doorstep.
-                  At FoodExpress, quality is our promise — every dish is crafted with care, using locally sourced produce and authentic recipes.
                 </p>
 
                 <Form className="mt-3">
@@ -81,13 +80,7 @@ const Footer = () => {
             </Row>
           </Container>
 
-          <Container fluid className="px-0">
-            <hr className="text-white opacity-50 mx-auto" style={{ maxWidth: '1140px' }} />
-          </Container>
-
-          <div className="text-center py-3 small">
-            © 2025 <span className="fw-bold text-white">FoodExpress</span> All rights reserved
-          </div>
+         
 
         </footer>
       </div>

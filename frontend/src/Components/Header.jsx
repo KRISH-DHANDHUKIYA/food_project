@@ -78,9 +78,11 @@ function App() {
                     </Link>
 
                     <div className="d-lg-none d-flex align-items-center me-2">
+                            <Link to="/cart">
                         <Button variant="primary" className="py-1 px-2">
-                            Items <Badge bg="light" text="dark">3</Badge>
+                            Cart <Badge bg="light" text="dark">{getCartCount()}</Badge>
                         </Button>
+                        </Link>
                     </div>
 
                     <Navbar.Toggle
@@ -107,11 +109,14 @@ function App() {
                         </Nav>
 
                         <div className="d-none d-lg-flex align-items-center ms-lg-3">
-                            <Link to="/cart"><Button variant="primary" className="me-2">
-                                Cart <Badge bg="light" text="dark">{getCartCount()}</Badge>
-                            </Button></Link>
+                            <Link to="/cart">
+                                <Button variant="primary" className="me-2">
+                                    Cart <Badge bg="light" text="dark">{getCartCount()}</Badge>
+                                </Button>
+                            </Link>
                             <Button variant="danger">Login</Button>
                         </div>
+
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
