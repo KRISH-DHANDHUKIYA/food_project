@@ -7,7 +7,7 @@ export const ShopContext = createContext()
 export const ShopContextProvider = (props) => {
 
     const currency = "$"
-    const  delivery_charges = 10
+    const delivery_charges = 10
     const navigate = useNavigate()
 
     const [cartItems, setCartItems] = useState({})
@@ -82,7 +82,7 @@ export const ShopContextProvider = (props) => {
         return totalAmount
     }
 
-    const contextValue = { foods, currency,  delivery_charges , navigate, addToCart, getCartCount, cartItems, updateQuantity, getCartAmount };
+    const contextValue = { foods, currency, delivery_charges, navigate, addToCart, getCartCount, cartItems, updateQuantity, getCartAmount };
 
     return (
         <>

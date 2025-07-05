@@ -6,6 +6,7 @@ const CardTotal = () => {
     const { currency, delivery_charges, getCartAmount } = useContext(ShopContext);
 
     return (
+        <>
         <Container fluid className="p-4 bg-light border rounded shadow-sm w-100">
             <Row>
                 <Col><h2>Cart Total</h2></Col>
@@ -41,6 +42,7 @@ const CardTotal = () => {
             </Row>
             <hr />
         </Container>
+        </>
     );
 };
 

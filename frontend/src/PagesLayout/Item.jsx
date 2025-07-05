@@ -10,6 +10,7 @@ const Item = ({ food }) => {
     const [size, setSize] = useState(food.sizes[0]);
 
     return (
+        <>
         <Card
             className="text-center position-relative border-0 mb-4"
             style={{ borderRadius: "20px", backgroundColor: "#eaf8dc", paddingTop: "80px", overflow: "hidden", minHeight: "450px", }}>
@@ -53,7 +54,7 @@ const Item = ({ food }) => {
                         ))}
                     </ButtonGroup>
 
-                    <Button onClick={() => addToCart(food._id,size)} variant="success" className="p-2 rounded-2" aria-label="Add to Cart">
+                    <Button onClick={() => addToCart(food._id, size)} variant="success" className="p-2 rounded-2" aria-label="Add to Cart">
                         <TbShoppingBagPlus size={18} color="#fff" />
                     </Button>
 
@@ -65,6 +66,7 @@ const Item = ({ food }) => {
                 </div>
             </div>
         </Card>
+        </>
     );
 };
 

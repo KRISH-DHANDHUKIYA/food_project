@@ -51,6 +51,7 @@ const Cart1 = () => {
     };
 
     return (
+        <>
         <section className="py-5">
             <Container>
                 <div className="pt-3">
@@ -73,7 +74,7 @@ const Cart1 = () => {
                                         <Col xs={9} sm={10}>
                                             <div className="d-flex justify-content-between align-items-start">
                                                 <h5 className="mb-1">{productData.name}</h5>
-                                                <FaRegWindowClose className="text-danger cursor-pointer" />
+                                                <FaRegWindowClose onClick={() => updateQuantity(item._id, item.size, 0)} className="text-danger cursor-pointer" />
                                             </div>
                                             <p className="mb-2"><strong>Size:</strong> {item.size}</p>
 
@@ -100,6 +101,7 @@ const Cart1 = () => {
                 </div>
             </Container>
         </section>
+        </>
     );
 };
 

@@ -1,12 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import {
-    Container,
-    Row,
-    Col,
-    Form,
-    InputGroup,
-    Button,
-} from "react-bootstrap";
+import { Container, Row, Col, Form, InputGroup, Button, } from "react-bootstrap";
 import { RiSearch2Line } from "react-icons/ri";
 import { LuSettings2 } from "react-icons/lu";
 import { ShopContext } from "../Context/ShopContext";
@@ -26,12 +19,8 @@ const Menu1 = () => {
     const itemPerPage = 10;
 
     const toggleFilter = (value, setState) => {
-        setState((prev) =>
-            prev.includes(value)
-                ? prev.filter((item) => item !== value)
-                : [...prev, value]
-        );
-    };
+        setState((prev) => prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value])
+    }
 
     const applyFilters = () => {
         let filtered = [...foods];
@@ -127,7 +116,7 @@ const Menu1 = () => {
                                             key={cat.name}
                                             role="button"
                                             onClick={() => toggleFilter(cat.name, SetCategory)}
-                                            className={`d-flex align-items-center bg-light px-3 py-2 rounded-pill flex-grow-1 flex-md-grow-0 ${isChecked ? "border border-danger text-danger" : ""
+                                            className={`d-flex align-items-center bg-light border border-4 px-3 py-2 rounded-pill flex-grow-1 flex-md-grow-0 ${isChecked ? "border border-danger text-danger" : ""
                                                 }`}
                                             style={{ cursor: "pointer", minWidth: "180px" }}
                                         >

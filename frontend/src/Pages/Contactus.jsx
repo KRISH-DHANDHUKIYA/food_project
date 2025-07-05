@@ -1,7 +1,9 @@
+import Contact from "../PagesLayout/Contact"
+
 const Contactus = () => {
     return (
         <>
-            <h1>Contactus</h1>
+            <Contact />
         </>
     )
 }
