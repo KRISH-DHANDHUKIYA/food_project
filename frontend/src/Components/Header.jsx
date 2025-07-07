@@ -1,17 +1,100 @@
-import { useContext, useState } from "react";
+// import { useContext, useState } from "react";
+// import { Badge, Button, Container, Nav, Navbar } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+// import { ShopContext } from "../Context/ShopContext";
+// import { useDispatch, useSelector } from "react-redux";
+// import { changeState } from "../redux/Slice/count_slice";
+// import Login from "./Login";
+// import Signup from "./Signup";
+
+// function App() {
+
+//     const [expanded, setExpanded] = useState(false);
+//     const [signupShow, setSignupShow] = useState(false)
+//     const [loginShow, setLoginShow] = useState(false)
+
+//     const { getCartCount } = useContext(ShopContext)
+
+//     const dispatch = useDispatch();
+//     const isSignup = useSelector((state) => state.Signup.isSignup);
+
+//     return (
+//         <>
+//             <Navbar expand="lg" bg="dark" sticky="top" expanded={expanded} className="py-3 shadow-sm">
+//                 <Container>
+//                     <Link to="/" className="text-decoration-none">
+//                         <Navbar.Brand className="text-light fw-bold fs-4">FoodExpress</Navbar.Brand>
+//                     </Link>
+
+//                     <div className="d-lg-none d-flex align-items-center me-2">
+//                         <Link to="/cart">
+//                             <Button variant="primary" className="py-1 px-2">
+//                                 Cart <Badge bg="light" text="dark">{getCartCount()}</Badge>
+//                             </Button>
+//                         </Link>
+//                     </div>
+
+//                     <Navbar.Toggle
+//                         aria-controls="navbarScroll"
+//                         className="bg-dark"
+//                         onClick={() => setExpanded(!expanded)}
+//                     />
+
+//                     <Navbar.Collapse id="navbarScroll">
+//                         <Nav className="m-auto my-3 my-lg-0 text-center">
+//                             <Link to="/" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+//                                 Home
+//                             </Link>
+//                             <Link to="/menu" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+//                                 Menu
+//                             </Link>
+//                             <Link to="/contactus" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+//                                 Contact Us
+//                             </Link>
+
+//                             <div className="d-lg-none mt-3">
+//                                 <Button variant="danger" className="w-100" onClick={() => dispatch(changeState())}>Login</Button>
+//                             </div>
+//                         </Nav>
+
+//                         <div className="d-none d-lg-flex align-items-center ms-lg-3">
+//                             <Link to="/cart">
+//                                 <Button variant="primary" className="me-2">
+//                                     Cart <Badge bg="light" text="dark">{getCartCount()}</Badge>
+//                                 </Button>
+//                             </Link>
+//                             <Button variant="danger" onClick={() => dispatch(changeState())}>Login</Button>
+//                         </div>
+
+//                     </Navbar.Collapse>
+//                 </Container>
+//             </Navbar>
+//         </>
+//     );
+// }
+
+// export default App
+import { useContext } from "react";
 import { Badge, Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
+import { useDispatch, useSelector } from "react-redux";
+import { openLogin, openSignup, closeModal } from "../redux/Slice/count_slice";
+import Login from "./Login";
+import Signup from "./Signup";
 
-function App() {
+function Header() {
+    const { getCartCount } = useContext(ShopContext);
+    const dispatch = useDispatch();
+    const isSignup = useSelector((state) => state.Signup.isSignup); // true, false, or null
 
-    const [expanded, setExpanded] = useState(false);
-
-    const { getCartCount } = useContext(ShopContext)
+    const handleClose = () => dispatch(closeModal());
+    const switchToLogin = () => dispatch(openLogin());
+    const switchToSignup = () => dispatch(openSignup());
 
     return (
         <>
-            <Navbar expand="lg" bg="dark" sticky="top" expanded={expanded} className="py-3 shadow-sm">
+            <Navbar expand="lg" bg="dark" sticky="top" className="py-3 shadow-sm">
                 <Container>
                     <Link to="/" className="text-decoration-none">
                         <Navbar.Brand className="text-light fw-bold fs-4">FoodExpress</Navbar.Brand>
@@ -25,26 +108,20 @@ function App() {
                         </Link>
                     </div>
 
-                    <Navbar.Toggle
-                        aria-controls="navbarScroll"
-                        className="bg-dark"
-                        onClick={() => setExpanded(!expanded)}
-                    />
-
+                    <Navbar.Toggle aria-controls="navbarScroll" className="bg-dark" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav className="m-auto my-3 my-lg-0 text-center">
-                            <Link to="/" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+                            <Link to="/" className="nav-link-custom text-decoration-none px-3 py-2 text-light">
                                 Home
                             </Link>
-                            <Link to="/menu" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+                            <Link to="/menu" className="nav-link-custom text-decoration-none px-3 py-2 text-light">
                                 Menu
                             </Link>
-                            <Link to="/contactus" className="nav-link-custom text-decoration-none px-3 py-2 text-light" onClick={() => setExpanded(false)}>
+                            <Link to="/contactus" className="nav-link-custom text-decoration-none px-3 py-2 text-light">
                                 Contact Us
                             </Link>
-
                             <div className="d-lg-none mt-3">
-                                <Button variant="danger" className="w-100">Login</Button>
+                                <Button variant="danger" className="w-100" onClick={() => dispatch(openLogin())}>Login</Button>
                             </div>
                         </Nav>
 
@@ -54,14 +131,17 @@ function App() {
                                     Cart <Badge bg="light" text="dark">{getCartCount()}</Badge>
                                 </Button>
                             </Link>
-                            <Button variant="danger">Login</Button>
+                            <Button variant="danger" onClick={() => dispatch(openLogin())}>Login</Button>
                         </div>
-
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+
+            {/* Render Modals based on state */}
+            <Login show={isSignup === false} handleClose={handleClose} switchToSignup={switchToSignup} />
+            <Signup show={isSignup === true} handleClose={handleClose} switchToLogin={switchToLogin} />
         </>
     );
 }
 
-export default App
+export default Header
