@@ -1,27 +1,36 @@
-const newuser = (req, res) => {
-  res.send("successGJ-03");
-};
+const usermodel = require('../models/user_model')
 
-const newuser2 = (req, res) => {
-  res.send("MDN-2");
-};
 
-const newuser3 = (req, res) => {
-  res.send("SOLO-3");
-};
+// user register route
+const registerUser = async (req, res) => {
+    try {
+        const user = req.body;
+        if (!user) {
+            return res.status(404).json({ status: false, data: { message: 'all filed mandatory' } });
+        }
 
-const newuser4 = (req, res) => {
-  res.send("ELEven-5");
-};
+        const dbuser = new usermodel({ name: user.name, email: user.email, password: user.password })
+        await dbuser.save()
+        return res.status(200).json({ status: true, data: { message: "user created successfully.", data: dbuser } })
 
-const new5 = (req, res) => {
-  res.send("000000.1");
-};
+    }
+    catch (error) {
+        console.log(error)
+        return res.status(500).json({ status: false, data: { message: "Internal server error", data: error } })
+    }
+}
 
-module.exports = {
-  newuser,
-  newuser2,
-  newuser3,
-  newuser4,
-  new5
-};
+
+
+// user login route
+const loginUser = async (req, res) => {
+
+}
+
+
+// user login route
+const adminUser = async (req, res) => {
+
+}
+
+module.exports = { registerUser, loginUser, adminUser }

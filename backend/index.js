@@ -1,18 +1,25 @@
 const express = require("express");
 const cors = require("cors");
-const userRoutes = require("./routes/use_routes"); // ✅ Import route
-
+const conn = require("./utilities/connectdb")
+const userrouter = require("./routes/use_routes")
+const connectCloudinary = require("./utilities/cloudinary")
+ 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
+connectCloudinary()
 
-app.use("/", userRoutes);
+app.use('/api', userrouter) 
 
-app.get('/', (req, res) => {
-    res.send("success");
-});
-
-app.listen(1000, () => {
-    console.log('Server is starting on the port 1000');
-});
+const startserver = async () => {
+    try {
+        await conn()
+        app.listen(1000, () => {
+            console.log('Server is starting on the port 1000')
+        })
+    }
+    catch (error) {
+        console.log("failed to start server.");
+    }
+}
+startserver()
