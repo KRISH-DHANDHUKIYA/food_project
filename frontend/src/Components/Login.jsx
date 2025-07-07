@@ -1,70 +1,94 @@
 import { useState } from "react";
-import {Alert, Button, Carousel, Col, Form, Modal, Row} from "react-bootstrap";
+import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Login({ show, handleClose, switchToSignup }) {
-  const [form, setForm] = useState({ email: "", password: "" });
-  const [alertMessage, setAlertMessage] = useState("");
+    const [form, setForm] = useState({ email: "", password: "" });
+    const [alertMessage, setAlertMessage] = useState("");
+    const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+        setErrors({ ...errors, [e.target.name]: "" });
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!form.email || !form.password) {
-      setAlertMessage("All fields are required!");
-      return;
-    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const newErrors = {};
 
-    console.log("Login Data:", {email: form.email, password: form.password,});
+        if (!form.email.trim()) newErrors.email = "Email is required";
+        if (!form.password.trim()) newErrors.password = "Password is required";
 
-    setAlertMessage("Login data logged to console!");
-  };
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
 
-  return (
-    <Modal show={show} onHide={handleClose} size="lg" centered>
-      <Modal.Body className="p-0">
-        <Row className="g-0 flex-column flex-md-row">
-          <Col md={6} className="d-none d-md-block">
-            <Carousel fade controls={false} indicators={false} interval={null}>
-             
-            </Carousel>
-          </Col>
-          <Col xs={12} md={6} className="p-4">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h5 className="mb-0">Login</h5>
-              <Button variant="light" size="sm" onClick={handleClose}>✕</Button>
-            </div>
+        console.log("Login Data:", form);
+        setAlertMessage("");
+        setErrors({});
+        handleClose();
+    };
 
-            {alertMessage && <Alert variant="info">{alertMessage}</Alert>}
+    return (
+        <>
+            <Modal show={show} onHide={handleClose} size="md" centered>
+                <Modal.Body className="p-0">
+                    <Row className="g-0">
+                        <Col xs={12} className="p-4">
+                            {/* Modal Header */}
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <h4 className="mb-0 fw-semibold">Login</h4>
+                                <Button variant="light" size="sm" onClick={handleClose}>✕</Button>
+                            </div>
 
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control name="email" type="email" value={form.email} onChange={handleChange} />
-              </Form.Group>
+                            {/* Alert Message */}
+                            {alertMessage && <Alert variant="info">{alertMessage}</Alert>}
 
-              <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control name="password" type="password" value={form.password} onChange={handleChange} />
-              </Form.Group>
+                            {/* Login Form */}
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control type="email" name="email" placeholder="Enter your email" value={form.email} onChange={handleChange} isInvalid={!!errors.email} />
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.email}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
 
-              <div className="text-end mb-3">
-                <Link to="/" style={{ fontSize: "0.9rem" }}>Forgot Password?</Link>
-              </div>
+                                <Form.Group className="mb-4">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" name="password" placeholder="Enter your password" value={form.password} onChange={handleChange} isInvalid={!!errors.password} />
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.password}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
 
-              <Button type="submit" variant="primary" className="w-100">Login</Button>
-            </Form>
+                                <div className="text-end mb-3">
+                                    <Link to="/" style={{ fontSize: "0.9rem" }}>
+                                        Forgot Password?
+                                    </Link>
+                                </div>
 
-            <div className="text-center mt-3">
-              Don’t have an account? <span onClick={switchToSignup} style={{ cursor: "pointer", color: "blue" }}>Sign Up</span>
-            </div>
-          </Col>
-        </Row>
-      </Modal.Body>
-    </Modal>
-  );
+                                <Button type="submit" variant="primary" className="w-100 py-2">
+                                    Login
+                                </Button>
+                            </Form>
+
+                            {/* Switch to Sign Up */}
+                            <div className="text-center mt-4">
+                                Don’t have an account?{" "}
+                                <span
+                                    onClick={switchToSignup}
+                                    style={{ cursor: "pointer", color: "#0d6efd", fontWeight: "500" }}>
+                                    Sign Up
+                                </span>
+                            </div>
+                        </Col>
+                    </Row>
+                </Modal.Body>
+            </Modal>
+        </>
+    );
 }
 
 export default Login;
