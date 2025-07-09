@@ -3,7 +3,6 @@ import Endlayout from "./Layout/Endlayout";
 import Home from "./Pages/Home";
 import Menu from "./Pages/Menu";
 import Contactus from "./Pages/Contactus";
-import Admin from "./Pages/Admin";
 import Notpage from "./Pages/Notpage";
 import Cart from "./Pages/Cart";
 import Login from "./Pages/Login";
@@ -24,7 +23,6 @@ function App() {
           <Route path="/placeorder" element={<Placeorder />} />
           <Route path="/order" element={<Orders />} />
           <Route path="/verify" element={<Verify />} />
-          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<Notpage />} />
         </Route>
       </Routes>
