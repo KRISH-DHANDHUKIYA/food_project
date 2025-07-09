@@ -77,7 +77,6 @@ const loginUser = async (req, res) => {
     }
 };
 
-
 // user login route
 // const adminUser = async (req, res) => {
 //     try {
@@ -96,48 +95,53 @@ const loginUser = async (req, res) => {
 //     }
 // }
 const adminUser = async (req, res) => {
+    //     try {
+    //         const { email, password } = req.body;
+
+    //         // Validate input
+    //         if (!email || !password) {
+    //             return res.status(400).json({ status: false, data: { message: 'Email and password are required' } })
+    //         }
+
+    //         // Check against admin credentials in .env
+    //         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASS) {
+    //             const token = jwt.sign({ role: "admin", email }, process.env.JWT_SECRET);
+
+    //             return res.status(200).json({ status: true, data: { message: "Admin login successful", admin: { email }, token } })
+    //         } else {
+    //             return res.status(401).json({ status: false, data: { message: "Invalid admin credentials" } })
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         return res.status(500).json({ status: false, data: { message: "Internal server error", error: error.message } });
+    //     }
+    // };
     try {
         const { email, password } = req.body;
 
-        // Validate input
-        if (!email || !password) {
-            return res.status(400).json({
-                status: false,
-                data: { message: 'Email and password are required' }
-            });
-        }
-
-        // Check against admin credentials in .env
-        if (
-            email === process.env.ADMIN_EMAIL &&
-            password === process.env.ADMIN_PASS
-        ) {
-            const token = jwt.sign({ role: "admin", email }, process.env.JWT_SECRET);
+        // Check credentials
+        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASS) {
+            const token = jwt.sign({ email, password }, JWT_SECRET, { expiresIn: "7d" });
 
             return res.status(200).json({
-                status: true,
-                data: {
-                    message: "Admin login successful",
-                    admin: { email },
-                    token
-                }
+                success: true,
+                token,
+                message: "Admin logged in successfully"
             });
         } else {
             return res.status(401).json({
-                status: false,
-                data: { message: "Invalid admin credentials" }
+                success: false,
+                message: "Invalid admin credentials"
             });
         }
     } catch (error) {
-        console.log(error);
+        console.error("Admin Login Error:", error.message);
         return res.status(500).json({
-            status: false,
-            data: { message: "Internal server error", error: error.message }
+            success: false,
+            message: "Internal server error"
         });
     }
 };
 
 
 module.exports = { registerUser, loginUser, adminUser }
-
-
