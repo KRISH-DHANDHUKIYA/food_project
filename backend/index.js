@@ -12,6 +12,7 @@ connectCloudinary()
 
 app.use('/api', userrouter)
 app.use('/api/product', productRouter)
+// app.use('/api/admin', userrouter);
 
 const startserver = async () => {
     try {

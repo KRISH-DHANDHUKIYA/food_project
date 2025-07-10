@@ -1,7 +1,6 @@
 const cloudinary = require('cloudinary').v2;
 const productModel = require("../models/productModel")
 
-//function for adding products
 const addProduct = async (req, res) => {
     try {
         const { name, description, category, prices, popular } = req.body;
@@ -14,7 +13,6 @@ const addProduct = async (req, res) => {
             });
         }
 
-        // Upload image or set default image
         let imageUrl = "https://avatars.mds.yandex.net/i?id=9593ea4ac82d0924313698155220fa046de9b8aa-5869256-images-thumbs&n=13"; // default
         if (image) {
             const result = await cloudinary.uploader.upload(image.path, {
@@ -62,20 +60,7 @@ const addProduct = async (req, res) => {
 };
 
 
-//function for removing products
-// const removeProduct = async (req, res) => {
-//     try {
-//         await productModel.findByIdAndDelete(req.body.id)
-//         res.json({ success: true, message: "Food Removed" })
-//     }
-//     catch (error) {
-//         console.error(error);
-//         return res.status(500).json({
-//             status: false,
-//             data: { message: "Internal server error", error: error.message }
-//         });
-//     }
-// }
+
 const removeProduct = async (req, res) => {
     try {
         const { id } = req.body;
@@ -110,10 +95,6 @@ const removeProduct = async (req, res) => {
     }
 };
 
-
-
-
-//function for List products
 const listProduct = async (req, res) => {
     try {
         const products = await productModel.find().sort({ date: -1 }); // latest first
@@ -137,26 +118,6 @@ const listProduct = async (req, res) => {
 };
 
 
-
-
-//function for single product information
-// const singleProduct = async (req, res) => {
-//     try {
-//         const {productId} = req.body
-//         const product = await productModel.findById(productId)
-//         res.json({success:true,product})
-//     }
-//     catch (error) {
-//         console.error(error);
-//         return res.status(500).json({
-//             status: false,
-//             data: {
-//                 message: "Internal server error",
-//                 error: error.message
-//             }
-//         });
-//     }
-// }
 const singleProduct = async (req, res) => {
     try {
         const { productId } = req.body;

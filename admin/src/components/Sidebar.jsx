@@ -4,18 +4,22 @@ import { MdFactCheck } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { FaListAlt } from "react-icons/fa";
 
-const Sidebar = () => {
+const Sidebar = ({ setToken }) => {
     return (
-        <div className="bg-dark text-white p-3 min-vh-100 d-flex flex-column">
+        <div
+            className="bg-dark text-white d-flex flex-column"
+            style={{ height: "100vh", padding: "1.5rem", minWidth: "220px" }}
+        >
             {/* Logo */}
-            <div className="fw-bold fs-4 text-center mb-5" >FoodExpress</div>
+            <div className="fw-bold fs-4 text-center mb-5">FoodExpress</div>
 
             {/* Navigation Links */}
             <div className="d-flex flex-column gap-3 flex-grow-1">
                 <NavLink
                     to="/"
                     className={({ isActive }) =>
-                        `d-flex align-items-center gap-2 px-3 py-2 rounded ${isActive ? "bg-white text-dark" : "text-white"}`
+                        `d-flex align-items-center gap-2 px-3 py-2 rounded ${isActive ? "bg-white text-dark" : "text-white"
+                        }`
                     }
                 >
                     <FaSquarePlus />
@@ -25,7 +29,8 @@ const Sidebar = () => {
                 <NavLink
                     to="/list"
                     className={({ isActive }) =>
-                        `d-flex align-items-center gap-2 px-3 py-2 rounded ${isActive ? "bg-white text-dark" : "text-white"}`
+                        `d-flex align-items-center gap-2 px-3 py-2 rounded ${isActive ? "bg-white text-dark" : "text-white"
+                        }`
                     }
                 >
                     <FaListAlt />
@@ -35,7 +40,8 @@ const Sidebar = () => {
                 <NavLink
                     to="/orders"
                     className={({ isActive }) =>
-                        `d-flex align-items-center gap-2 px-3 py-2 rounded ${isActive ? "bg-white text-dark" : "text-white"}`
+                        `d-flex align-items-center gap-2 px-3 py-2 rounded ${isActive ? "bg-white text-dark" : "text-white"
+                        }`
                     }
                 >
                     <MdFactCheck />
@@ -44,8 +50,12 @@ const Sidebar = () => {
             </div>
 
             {/* Logout at bottom */}
-            <div className="mt-auto">
-                <button className="btn btn-outline-light d-flex align-items-center gap-2 w-100">
+            <div>
+                <button
+                    onClick={() => setToken("")}
+                    className="btn btn-outline-light d-flex align-items-center gap-2 w-100"
+                    style={{ marginTop: "auto" }}
+                >
                     <BiLogOut className="fs-5" />
                     <span className="d-none d-lg-inline">Logout</span>
                 </button>
