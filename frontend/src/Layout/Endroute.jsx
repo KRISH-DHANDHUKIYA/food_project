@@ -9,6 +9,7 @@ import Placeorder from "../Pages/Placeorder"
 import Orders from "../Pages/Orders"
 import Verify from "../Pages/Verify"
 import Notpage from "../Pages/Notpage"
+import Aboutus from "../Pages/Aboutus"
 
 const Endroute = () => {
     return (
@@ -16,6 +17,7 @@ const Endroute = () => {
             <Routes>
                 <Route path="/" element={<Endlayout />}>
                     <Route index element={<Home />} />
+                    <Route index element={<Aboutus />} />
                     <Route index element={<Menu />} />
                     <Route index element={<Contactus />} />
                     <Route index element={<Card />} />

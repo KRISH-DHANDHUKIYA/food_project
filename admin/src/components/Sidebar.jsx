@@ -8,8 +8,7 @@ const Sidebar = ({ setToken }) => {
     return (
         <div
             className="bg-dark text-white d-flex flex-column"
-            style={{ height: "100vh", padding: "1.5rem", minWidth: "220px" }}
-        >
+            style={{ height: "100vh", padding: "1.5rem", minWidth: "220px" }}>
             {/* Logo */}
             <div className="fw-bold fs-4 text-center mb-5">FoodExpress</div>
 
@@ -21,7 +20,7 @@ const Sidebar = ({ setToken }) => {
                         `d-flex align-items-center gap-2 px-3 py-2 rounded ${isActive ? "bg-white text-dark" : "text-white"
                         }`
                     }
-                >
+                    style={{ textDecoration: "none" }}>
                     <FaSquarePlus />
                     <span className="d-none d-lg-inline">Add Item</span>
                 </NavLink>
@@ -32,7 +31,7 @@ const Sidebar = ({ setToken }) => {
                         `d-flex align-items-center gap-2 px-3 py-2 rounded ${isActive ? "bg-white text-dark" : "text-white"
                         }`
                     }
-                >
+                    style={{ textDecoration: "none" }}>
                     <FaListAlt />
                     <span className="d-none d-lg-inline">List</span>
                 </NavLink>
@@ -41,9 +40,8 @@ const Sidebar = ({ setToken }) => {
                     to="/orders"
                     className={({ isActive }) =>
                         `d-flex align-items-center gap-2 px-3 py-2 rounded ${isActive ? "bg-white text-dark" : "text-white"
-                        }`
-                    }
-                >
+                        }`}
+                    style={{ textDecoration: "none" }}>
                     <MdFactCheck />
                     <span className="d-none d-lg-inline">Orders</span>
                 </NavLink>
@@ -53,9 +51,8 @@ const Sidebar = ({ setToken }) => {
             <div>
                 <button
                     onClick={() => setToken("")}
-                    className="btn btn-outline-light d-flex align-items-center gap-2 w-100"
-                    style={{ marginTop: "auto" }}
-                >
+                    className="btn btn-danger d-flex align-items-center gap-2 w-100"
+                    style={{ marginTop: "auto" }}>
                     <BiLogOut className="fs-5" />
                     <span className="d-none d-lg-inline">Logout</span>
                 </button>
