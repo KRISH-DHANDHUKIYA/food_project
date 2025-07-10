@@ -1,0 +1,8 @@
+.team-img-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-img-hover:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px rgba(40, 167, 69, 0.4); /* Soft green glow */
+}
