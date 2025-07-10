@@ -9,6 +9,7 @@ import Login from "./Pages/Login";
 import Placeorder from "./Pages/Placeorder";
 import Orders from "./Pages/Orders"
 import Verify from "./Pages/Verify";
+import Aboutus from "./Pages/Aboutus";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Endlayout />}>
           <Route index element={<Home />} />
+          <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/contactus" element={<Contactus />} />
           <Route path="/cart" element={<Cart />} />

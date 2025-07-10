@@ -44,10 +44,11 @@ const Header = () => {
                         </Link>
                     </div>
 
-                    <Navbar.Toggle aria-controls="navbarScroll" className="bg-dark" />
+                    <Navbar.Toggle aria-controls="navbarScroll" className="bg-light" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav className="m-auto my-3 my-lg-0 text-center">
                             <Link to="/" className="nav-link-custom text-decoration-none px-3 py-2 text-light">Home</Link>
+                            <Link to="/aboutus" className="nav-link-custom text-decoration-none px-3 py-2 text-light">About Us</Link>
                             <Link to="/menu" className="nav-link-custom text-decoration-none px-3 py-2 text-light">Menu</Link>
                             <Link to="/contactus" className="nav-link-custom text-decoration-none px-3 py-2 text-light">Contact Us</Link>
                             <div className="d-lg-none mt-3">
