@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react"
-import { foods } from "../assets/data"
+// import { foods } from "../assets/data"
+import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 export const ShopContext = createContext()
 
@@ -8,9 +10,12 @@ export const ShopContextProvider = (props) => {
 
     const currency = "$"
     const delivery_charges = 10
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:1000";
     const navigate = useNavigate()
 
     const [cartItems, setCartItems] = useState({})
+    const [foods, setFoods] = useState([])
+    const [token, setToken] = useState("");
 
     // adding items to card:
     const addToCart = async (itemId, size) => {
@@ -82,7 +87,27 @@ export const ShopContextProvider = (props) => {
         return totalAmount
     }
 
-    const contextValue = { foods, currency, delivery_charges, navigate, addToCart, getCartCount, cartItems, updateQuantity, getCartAmount };
+    // get all foods data
+    const getProductsData = async () => {
+        try {
+            const response = await axios.get(`${backendUrl}/api/product/list`);
+            if (response.data.status) {
+                setFoods(response.data.data.products);
+            } else {
+                toast.error(response.data.data.message || "Failed to fetch list");
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error(error.message);
+        }
+    };
+
+
+    useEffect(() => {
+        getProductsData();
+    }, [])
+
+    const contextValue = { foods, currency, delivery_charges, navigate, addToCart, getCartCount, cartItems, setCartItems, updateQuantity, getCartAmount, backendUrl, token, setToken };
 
     return (
         <>

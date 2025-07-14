@@ -5,15 +5,19 @@ import Menu from "./Pages/Menu";
 import Contactus from "./Pages/Contactus";
 import Notpage from "./Pages/Notpage";
 import Cart from "./Pages/Cart";
-import Login from "./Pages/Login";
+import Login from "./Components/Login";
 import Placeorder from "./Pages/Placeorder";
-import Orders from "./Pages/Orders"
+import Orders from "./Pages/Orders";
 import Verify from "./Pages/Verify";
 import Aboutus from "./Pages/Aboutus";
+import { ToastContainer } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+
       <Routes>
         <Route path="/" element={<Endlayout />}>
           <Route index element={<Home />} />
