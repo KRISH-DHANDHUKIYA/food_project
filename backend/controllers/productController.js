@@ -13,7 +13,7 @@ const addProduct = async (req, res) => {
             });
         }
 
-        let imageUrl = "https://avatars.mds.yandex.net/i?id=9593ea4ac82d0924313698155220fa046de9b8aa-5869256-images-thumbs&n=13"; // default
+        let imageUrl = "https://avatars.mds.yandex.net/i?id=9593ea4ac82d0924313698155220fa046de9b8aa-5869256-images-thumbs&n=13";
         if (image) {
             const result = await cloudinary.uploader.upload(image.path, {
                 resource_type: "image"

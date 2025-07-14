@@ -5,6 +5,8 @@ import { TbTrash } from "react-icons/tb";
 import { FaPlus } from "react-icons/fa6";
 import { backendUrl } from "../App";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Add = () => {
     const [image, setImage] = useState(null);
@@ -46,21 +48,40 @@ const Add = () => {
 
             const token = localStorage.getItem("token");
             if (!token) {
-                alert("You are not logged in.");
+                toast.error("You are not logged in.");
                 return;
             }
 
-            const response = await axios.post(backendUrl + "/api/product/add", formdata, {
+            const response = await axios.post(`${backendUrl}/api/product/add`, formdata, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            console.log(response.data);
+
+            console.log("API Response:", response.data);
+
+            if (response.data.status) {
+                toast.success(response.data.data.message || "Product added successfully");
+                setName("");
+                setDescription("");
+                // setCategory("Curry");
+                setPopular(false);
+                setImage(null);
+                setPrices([]);
+                document.getElementById("imageUpload").value = null;
+            } else {
+                toast.error(response.data.data.message || "Failed to add product");
+            }
+
         } catch (error) {
-            console.error("Add product failed:", error.response ? error.response.data : error.message);
+            console.error("Add Product Error:", error);
+            toast.error(
+                error.response?.data?.message || error.message || "Something went wrong"
+            );
         }
     };
 
     return (
         <Container style={{ maxWidth: "720px" }}>
+            <ToastContainer position="top-right" autoClose={3000} />
             <h3 className="mb-4">Add Product</h3>
             <Form onSubmit={onSubmitHandler}>
                 <Form.Group className="mb-3" controlId="productName">
@@ -104,7 +125,7 @@ const Add = () => {
 
                     <Col xs={12} sm={6} className="d-flex align-items-end">
                         <Form.Group>
-                            <Form.Label >Image : </Form.Label>
+                            <Form.Label>Image :</Form.Label>
                             <div>
                                 <Form.Label
                                     htmlFor="imageUpload"
@@ -131,7 +152,7 @@ const Add = () => {
                 </Row>
 
                 <Form.Group className="mb-3">
-                    <Form.Label className="d-block">Size and Pricing : </Form.Label>
+                    <Form.Label className="d-block">Size and Pricing :</Form.Label>
                     {prices.map((item, index) => (
                         <Row key={index} className="mb-2 align-items-center">
                             <Col xs={4}>
