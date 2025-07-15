@@ -16,27 +16,25 @@ const Add = () => {
     const [popular, setPopular] = useState(false);
     const [prices, setPrices] = useState([]);
 
-    const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
-    };
+    const handleImageChange = (e) => setImage(e.target.files[0]);
 
-    const addSizePrice = () => {
-        setPrices([...prices, { size: "", price: "" }]);
-    };
+    const addSizePrice = () => setPrices([...prices, { size: "", price: "" }]);
 
-    const removeSizePrice = (index) => {
+    const removeSizePrice = (index) =>
         setPrices(prices.filter((_, i) => i !== index));
-    };
 
     const handleSizePriceChange = (index, field, value) => {
         const updatedPrices = prices.map((item, i) =>
-            i === index ? { ...item, [field]: field === "size" ? value.toUpperCase() : value } : item
+            i === index
+                ? { ...item, [field]: field === "size" ? value.toUpperCase() : value }
+                : item
         );
         setPrices(updatedPrices);
     };
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+
         try {
             const formdata = new FormData();
             formdata.append("name", name);
@@ -56,13 +54,10 @@ const Add = () => {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            console.log("API Response:", response.data);
-
             if (response.data.status) {
                 toast.success(response.data.data.message || "Product added successfully");
                 setName("");
                 setDescription("");
-                // setCategory("Curry");
                 setPopular(false);
                 setImage(null);
                 setPrices([]);
@@ -70,19 +65,15 @@ const Add = () => {
             } else {
                 toast.error(response.data.data.message || "Failed to add product");
             }
-
         } catch (error) {
-            console.error("Add Product Error:", error);
-            toast.error(
-                error.response?.data?.message || error.message || "Something went wrong"
-            );
+            toast.error(error.response?.data?.message || error.message || "Something went wrong");
         }
     };
 
     return (
-        <Container style={{ maxWidth: "720px" }}>
+        <Container style={{ maxWidth: "720px" }} className="py-4">
             <ToastContainer position="top-right" autoClose={3000} />
-            <h3 className="mb-4">Add Product</h3>
+            <h3 className="mb-4 text-center">Add Product</h3>
             <Form onSubmit={onSubmitHandler}>
                 <Form.Group className="mb-3" controlId="productName">
                     <Form.Label>Product Name</Form.Label>
@@ -123,59 +114,67 @@ const Add = () => {
                         </Form.Group>
                     </Col>
 
-                    <Col xs={12} sm={6} className="d-flex align-items-end">
+                    <Col xs={12} sm={6}>
                         <Form.Group>
-                            <Form.Label>Image :</Form.Label>
-                            <div>
+                            <Form.Label>Image</Form.Label>
+                            <div className="d-flex align-items-center">
                                 <Form.Label
                                     htmlFor="imageUpload"
-                                    className="d-inline-block"
+                                    className="border rounded"
                                     style={{
                                         width: "56px",
                                         height: "56px",
                                         cursor: "pointer",
-                                        borderRadius: "0.375rem",
-                                        border: "1px solid #dee2e6",
                                         overflow: "hidden",
                                     }}
                                 >
                                     <img
                                         src={image ? URL.createObjectURL(image) : upload_icon}
-                                        alt="upload preview"
+                                        alt="upload"
                                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
                                     />
                                 </Form.Label>
-                                <Form.Control type="file" id="imageUpload" accept="image/*" onChange={handleImageChange} hidden />
+                                <Form.Control
+                                    type="file"
+                                    id="imageUpload"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                    hidden
+                                />
                             </div>
                         </Form.Group>
                     </Col>
                 </Row>
 
                 <Form.Group className="mb-3">
-                    <Form.Label className="d-block">Size and Pricing :</Form.Label>
+                    <Form.Label className="d-block">Size and Pricing</Form.Label>
                     {prices.map((item, index) => (
                         <Row key={index} className="mb-2 align-items-center">
-                            <Col xs={4}>
+                            <Col xs={5}>
                                 <Form.Control
                                     type="text"
-                                    placeholder="(S, M, L)"
+                                    placeholder="Size (S, M, L)"
                                     value={item.size}
                                     onChange={(e) => handleSizePriceChange(index, "size", e.target.value)}
                                     required
                                 />
                             </Col>
-                            <Col xs={4}>
+                            <Col xs={5}>
                                 <Form.Control
                                     type="number"
                                     placeholder="Price"
-                                    min={0}
                                     value={item.price}
+                                    min={0}
                                     onChange={(e) => handleSizePriceChange(index, "price", e.target.value)}
                                     required
                                 />
                             </Col>
-                            <Col xs={4}>
-                                <Button variant="outline-danger" onClick={() => removeSizePrice(index)} className="w-100">
+                            <Col xs={2}>
+                                <Button
+                                    variant="outline-danger"
+                                    className="w-100"
+                                    onClick={() => removeSizePrice(index)}
+                                >
                                     <TbTrash />
                                 </Button>
                             </Col>
@@ -195,7 +194,7 @@ const Add = () => {
                     />
                 </Form.Group>
 
-                <Button type="submit" variant="dark" className="w-100">
+                <Button type="submit" variant="dark" className="w-100 py-2">
                     Add Product
                 </Button>
             </Form>

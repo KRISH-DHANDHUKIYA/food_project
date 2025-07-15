@@ -304,11 +304,11 @@ export const foods = [
   },
   {
     _id: "18",
-    name: "Vegetable Fried Rice",
+    name: "Fried Rice",
     image: food_18,
     price: { H: 15, F: 20 },
     description:
-      "Enjoy our Vegetable Fried Rice, a mix of rice, fresh vegetables, and soy sauce for a tasty meal.",
+      "Enjoy our Fried Rice, a mix of rice, fresh , and soy sauce for a tasty meal.",
     category: "Rice",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -487,11 +487,11 @@ export const foods = [
   // Drinks Products
   {
     _id: "33",
-    name: "Chilled Lemonade with Fresh Mint",
+    name: "chocklate thiksheke",
     image: food_33,
     price: { H: 15, F: 20 },
     description:
-      "Enjoy our Chilled Lemonade, infused with fresh mint for a refreshing twist on a classic drink.",
+      "Enjoy our Chilled chocklate thiksheke, infused with fresh mint for a refreshing twist on a classic drink.",
     category: "Drinks",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -499,11 +499,11 @@ export const foods = [
   },
   {
     _id: "34",
-    name: "Smooth Vanilla Milkshake",
+    name: "Smooth Vanilla Milkshakes",
     image: food_34,
     price: { H: 15, F: 20 },
     description:
-      "Indulge in our Smooth Vanilla Milkshake, made with creamy vanilla ice cream and fresh milk.",
+      "Indulge in our Smooth Vanilla Milkshakes, made with creamy vanilla ice cream and fresh milk.",
     category: "Drinks",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -511,11 +511,11 @@ export const foods = [
   },
   {
     _id: "35",
-    name: "Tangy Orange Juice",
+    name: "Tangy Orange Juices",
     image: food_35,
     price: { H: 15, F: 20 },
     description:
-      "Savor the taste of our Tangy Orange Juice, freshly squeezed from ripe oranges.",
+      "Savor the taste of our Tangy Orange Juices, freshly squeezed from ripe oranges.",
     category: "Drinks",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -523,11 +523,11 @@ export const foods = [
   },
   {
     _id: "36",
-    name: "Rich Chocolate Milk",
+    name: "Rich green Milkshecke",
     image: food_36,
     price: { H: 15, F: 20 },
     description:
-      "Treat yourself to our Rich Chocolate Milk, a perfect blend of cocoa and milk for a creamy delight.",
+      "Treat yourself to our Rich green Milkshecke, a perfect blend of cocoa and milk for a creamy delight.",
     category: "Drinks",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -535,11 +535,11 @@ export const foods = [
   },
   {
     _id: "37",
-    name: "Fruity Mango Smoothie",
+    name: "Fruity strawberry Smoothie",
     image: food_37,
     price: { H: 15, F: 20 },
     description:
-      "Relish our Fruity Mango Smoothie, made with fresh mangoes and yogurt for a healthy treat.",
+      "Relish our Fruity strawberry Smoothie, made with fresh mangoes and yogurt for a healthy treat.",
     category: "Drinks",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -547,11 +547,11 @@ export const foods = [
   },
   {
     _id: "38",
-    name: "Refreshing Iced Tea",
+    name: "refreshing thiksheke",
     image: food_38,
     price: { H: 15, F: 20 },
     description:
-      "Experience the cool and refreshing taste of our Iced Tea, brewed with a hint of lemon.",
+      "Experience the cool and refreshing taste of our thiksheke, brewed with a hint of lemon.",
     category: "Drinks",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -559,11 +559,11 @@ export const foods = [
   },
   {
     _id: "39",
-    name: "Creamy Coffee Latte",
+    name: "fruits milksheke",
     image: food_39,
     price: { H: 15, F: 20 },
     description:
-      "Delight in our Creamy Coffee Latte, made with rich espresso and steamed milk.",
+      "Delight in our fruits milksheke, made with rich espresso and steamed milk.",
     category: "Drinks",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -585,11 +585,11 @@ export const foods = [
   // Fruits Products
   {
     _id: "41",
-    name: "Fresh Strawberries",
+    name: "orange",
     image: food_41,
     price: { H: 15, F: 20 },
     description:
-      "Enjoy the sweet and juicy taste of our Fresh Strawberries, handpicked for your delight.",
+      "Enjoy the sweet and juicy taste of our orange, handpicked for your delight.",
     category: "Fruits",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -609,11 +609,11 @@ export const foods = [
   },
   {
     _id: "43",
-    name: "Tropical Pineapple Chunks",
+    name: "cherries",
     image: food_43,
     price: { H: 15, F: 20 },
     description:
-      "Delight in our Tropical Pineapple Chunks, bursting with sweet and tangy flavors.",
+      "Delight in our cherries, bursting with sweet and tangy flavors.",
     category: "Fruits",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -621,11 +621,11 @@ export const foods = [
   },
   {
     _id: "44",
-    name: "Juicy Watermelon Slices",
+    name: "strawberry",
     image: food_44,
     price: { H: 15, F: 20 },
     description:
-      "Cool down with our Juicy Watermelon Slices, perfect for a refreshing summer treat.",
+      "Cool down with our strawberry, perfect for a refreshing summer treat.",
     category: "Fruits",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -633,11 +633,11 @@ export const foods = [
   },
   {
     _id: "45",
-    name: "Sweet Red Grapes",
+    name: "watermelon",
     image: food_45,
     price: { H: 15, F: 20 },
     description:
-      "Indulge in our Sweet Red Grapes, packed with natural sweetness and flavor.",
+      "Indulge in our watermelon, packed with natural sweetness and flavor.",
     category: "Fruits",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -645,11 +645,11 @@ export const foods = [
   },
   {
     _id: "46",
-    name: "Freshly Peeled Oranges",
+    name: "mixed fruits",
     image: food_46,
     price: { H: 15, F: 20 },
     description:
-      "Enjoy the convenience of our Freshly Peeled Oranges, ready to eat and full of juicy goodness.",
+      "Enjoy the convenience of our mixed fruits, ready to eat and full of juicy goodness.",
     category: "Fruits",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -657,11 +657,11 @@ export const foods = [
   },
   {
     _id: "47",
-    name: "Ripe Banana Bunch",
+    name: "painepal",
     image: food_47,
     price: { H: 15, F: 20 },
     description:
-      "Our Ripe Banana Bunch is perfect for a quick snack or a healthy addition to your meals.",
+      "Our painepal is perfect for a quick snack or a healthy addition to your meals.",
     category: "Fruits",
     sizes: ["H", "F"],
     date: 1716634345448,
@@ -669,11 +669,11 @@ export const foods = [
   },
   {
     _id: "48",
-    name: "Exotic Mango Slices",
+    name: "Dragon fruit",
     image: food_48,
     price: { H: 15, F: 20 },
     description:
-      "Savor the rich and juicy taste of our Exotic Mango Slices, a perfect tropical treat.",
+      "Savor the rich and juicy taste of our Dragon fruit, a perfect tropical treat.",
     category: "Fruits",
     sizes: ["H", "F"],
     date: 1716634345448,

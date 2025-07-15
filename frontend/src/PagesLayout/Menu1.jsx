@@ -118,7 +118,7 @@ const Menu1 = () => {
                                             onClick={() => toggleFilter(cat.name, SetCategory)}
                                             className={`d-flex align-items-center bg-light border border-4 px-3 py-2 rounded-pill flex-grow-1 flex-md-grow-0 ${isChecked ? "border border-danger text-danger" : ""
                                                 }`}
-                                            style={{ cursor: "pointer", minWidth: "180px" }}
+                                            style={{ cursor: "pointer" }}
                                         >
                                             <img
                                                 src={cat.image}

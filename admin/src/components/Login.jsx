@@ -1,15 +1,13 @@
-import { Container, Row, Col, Form, Button, Toast } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useState } from "react";
-import axios from "axios"
+import axios from "axios";
 import { backendUrl } from "../App";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
 
 const Login = ({ setToken }) => {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-   
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         try {
@@ -27,33 +25,37 @@ const Login = ({ setToken }) => {
         }
     };
 
-
     return (
-        <div className="bg-white min-vh-100 d-flex align-items-center justify-content-center">
+        <div className="bg-light min-vh-100 d-flex align-items-center justify-content-center">
             <Container>
                 <Row className="justify-content-center">
-                    <Col xs={12} sm={8} md={6} lg={4}>
-                        <Form
-                            onSubmit={onSubmitHandler}
-                            className="p-4 bg-white rounded shadow-sm"
-                        >
-                            <h3 className="mb-4 fw-bold text-center">Admin Panel</h3>
+                    <Col xs={12} sm={10} md={8} lg={6} xl={4}>
+                        <Form onSubmit={onSubmitHandler} className="bg-white p-4 p-md-5 rounded shadow">
+                            <h3 className="text-center mb-4 fw-bold">Admin Login</h3>
 
                             <Form.Group controlId="formEmail" className="mb-3">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder="Enter email" />
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Enter email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
                             </Form.Group>
 
-                            <Form.Group controlId="formPassword" className="mb-3">
+                            <Form.Group controlId="formPassword" className="mb-4">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control onChange={(e) => setPassword(e.target.value)} value={password} type="password" placeholder="Enter password" />
+                                <Form.Control
+                                    type="password"
+                                    placeholder="Enter password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
                             </Form.Group>
 
-                            <Button
-                                variant="dark"
-                                type="submit"
-                                className="w-100 mt-3 py-2 rounded"
-                            >
+                            <Button variant="dark" type="submit" className="w-100 py-2">
                                 Login
                             </Button>
                         </Form>
