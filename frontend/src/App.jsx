@@ -10,14 +10,13 @@ import Placeorder from "./Pages/Placeorder";
 import Orders from "./Pages/Orders";
 import Verify from "./Pages/Verify";
 import Aboutus from "./Pages/Aboutus";
-import { ToastContainer } from "react-toastify"; 
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
-
       <Routes>
         <Route path="/" element={<Endlayout />}>
           <Route index element={<Home />} />
@@ -27,7 +26,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/placeorder" element={<Placeorder />} />
-          <Route path="/order" element={<Orders />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="*" element={<Notpage />} />
         </Route>

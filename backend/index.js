@@ -4,6 +4,7 @@ const conn = require("./utilities/connectdb")
 const userrouter = require("./routes/use_routes")
 const connectCloudinary = require("./utilities/cloudinary");
 const productRouter = require("./routes/productRouter");
+const cartRouter = require("./routes/cartRouter");
 
 const app = express();
 app.use(cors());
@@ -12,6 +13,7 @@ connectCloudinary()
 
 app.use('/api', userrouter)
 app.use('/api/product', productRouter)
+app.use('/api/cart', cartRouter)
 
 const startserver = async () => {
     try {
