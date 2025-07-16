@@ -88,14 +88,35 @@ const allOrders = async (req, res) => {
 }
 
 // user orders for frotend
-const userOrders = async (req, res) => {
-    try {
+// const userOrders = async (req, res) => {
+//     try {
+//         const { userId } = req.body
+//         const orders = await orderModel.find({ userId })
 
+//         res.json({ success: true, orders })
+//     }
+//     catch (error) {
+//         console.log(error)
+//         res.json({ success: false, message: error.message })
+//     }
+// }
+const userOrders = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ success: false, message: "User ID is required" });
     }
-    catch (error) {
-        console.log(error)
-    }
-}
+
+    const orders = await orderModel.find({ userId }).sort({ date: -1 });
+
+    res.status(200).json({ success: true, message: "Orders fetched successfully", orders });
+  } catch (error) {
+    console.error("Error fetching user orders:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 
 // user order ststus from admin panel
 const updateStatus = async (req, res) => {
