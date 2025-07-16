@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const Login = ({ show, handleClose }) => {
-    const { backendUrl, setToken, token, navigate } = useContext(ShopContext);
+    const { backendUrl, setToken, token, navigate, getUserCart } = useContext(ShopContext);
 
-    const [mode, setMode] = useState("Login"); 
+    const [mode, setMode] = useState("Login");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -45,6 +45,8 @@ const Login = ({ show, handleClose }) => {
                     toast.success("Login successful!");
                     handleClose();
                     navigate("/");
+                    //fetch user cart immediately after login
+                    await getUserCart(response.data.data.token)
                 } else {
                     toast.error(res.data.message || "Login failed");
                 }

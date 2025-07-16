@@ -5,6 +5,7 @@ const userrouter = require("./routes/use_routes")
 const connectCloudinary = require("./utilities/cloudinary");
 const productRouter = require("./routes/productRouter");
 const cartRouter = require("./routes/cartRouter");
+const orderRouter = require("./routes/orderRoute");
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,7 @@ connectCloudinary()
 app.use('/api', userrouter)
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
+app.use('/api/order',orderRouter)
 
 const startserver = async () => {
     try {
