@@ -36,12 +36,9 @@ const authUser = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        req.body.userId = decoded.id;
+        req.body.userId = decoded.id; // this line must exist
         next();
     } catch (error) {
-        console.log(error);
         return res.status(401).json({ success: false, message: 'Invalid token' });
     }
 };
-
-module.exports = authUser;

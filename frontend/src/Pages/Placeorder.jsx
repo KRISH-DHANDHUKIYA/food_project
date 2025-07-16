@@ -136,11 +136,21 @@ import { Form, Row, Col, Button, Container } from "react-bootstrap";
 import { ShopContext } from "../Context/ShopContext";
 import CartTotal from "../PagesLayout/CardTotal";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Placeorder = () => {
-    const { navigate, backendUrl, cartItems, getCartAmount, delivery_charges, foods, token } = useContext(ShopContext);
+    const {
+        navigate,
+        backendUrl,
+        cartItems,
+        setCartItems,
+        getCartAmount,
+        delivery_charges,
+        foods,
+        token,
+    } = useContext(ShopContext);
 
-    const [method, setMethod] = useState('cod');
+    const [method, setMethod] = useState("cod");
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -151,7 +161,7 @@ const Placeorder = () => {
         country: "",
         state: "",
         zipcode: "",
-        phone: ""
+        phone: "",
     });
 
     const onChangeHandler = (e) => {
@@ -165,13 +175,13 @@ const Placeorder = () => {
         try {
             let orderItems = [];
 
-            for (const items in cartItems) {
-                for (const item in cartItems[items]) {
-                    if (cartItems[items][item] > 0) {
-                        const itemInfo = structuredClone(foods.find(food => food._id === items));
+            for (const foodId in cartItems) {
+                for (const size in cartItems[foodId]) {
+                    if (cartItems[foodId][size] > 0) {
+                        const itemInfo = structuredClone(foods.find((f) => f._id === foodId));
                         if (itemInfo) {
-                            itemInfo.size = item;
-                            itemInfo.quantity = cartItems[items][item];
+                            itemInfo.size = size;
+                            itemInfo.quantity = cartItems[foodId][size];
                             orderItems.push(itemInfo);
                         }
                     }
@@ -181,19 +191,27 @@ const Placeorder = () => {
             const orderData = {
                 address: formData,
                 items: orderItems,
-                amount: getCartAmount() + delivery_charges
+                amount: getCartAmount() + delivery_charges,
             };
 
-            if (method === 'cod') {
+            if (method === "cod") {
                 const response = await axios.post(`${backendUrl}/api/order/place`, orderData, {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
-                console.log(response.data);
+
+                if (response.data.success) {
+                    setCartItems({});
+                    toast.success("Order placed successfully!");
+                    navigate("/orders");
+                } else {
+                    toast.error(response.data.message || "Order failed. Try again.");
+                }
             }
         } catch (error) {
-            console.log(error);
+            toast.error("Something went wrong. Please try again.");
+            console.error("Order Error:", error?.response?.data || error.message);
         }
     };
 
@@ -202,67 +220,131 @@ const Placeorder = () => {
             <Container>
                 <Form onSubmit={onSubmitHandler}>
                     <Row>
-                        {/* Left Column - Delivery Information */}
+                        {/* Delivery Info */}
                         <Col lg={7} className="py-5">
                             <h4 className="fw-bold mb-4">Delivery Information</h4>
+
                             <Row className="mb-3">
                                 <Col md={6}>
-                                    <Form.Control type="text" required name="firstName" value={formData.firstName} onChange={onChangeHandler} placeholder="First Name" />
+                                    <Form.Control
+                                        type="text"
+                                        name="firstName"
+                                        value={formData.firstName}
+                                        onChange={onChangeHandler}
+                                        placeholder="First Name"
+                                        required
+                                    />
                                 </Col>
                                 <Col md={6}>
-                                    <Form.Control type="text" required name="lastName" value={formData.lastName} onChange={onChangeHandler} placeholder="Last Name" />
+                                    <Form.Control
+                                        type="text"
+                                        name="lastName"
+                                        value={formData.lastName}
+                                        onChange={onChangeHandler}
+                                        placeholder="Last Name"
+                                        required
+                                    />
                                 </Col>
                             </Row>
 
                             <Form.Group className="mb-3">
-                                <Form.Control type="email" required name="email" value={formData.email} onChange={onChangeHandler} placeholder="Email" />
+                                <Form.Control
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={onChangeHandler}
+                                    placeholder="Email"
+                                    required
+                                />
                             </Form.Group>
 
                             <Form.Group className="mb-3">
-                                <Form.Control type="text" required name="phone" value={formData.phone} onChange={onChangeHandler} placeholder="Phone Number" />
+                                <Form.Control
+                                    type="text"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={onChangeHandler}
+                                    placeholder="Phone Number"
+                                    required
+                                />
                             </Form.Group>
 
                             <Form.Group className="mb-3">
-                                <Form.Control type="text" required name="street" value={formData.street} onChange={onChangeHandler} placeholder="Street Address" />
+                                <Form.Control
+                                    type="text"
+                                    name="street"
+                                    value={formData.street}
+                                    onChange={onChangeHandler}
+                                    placeholder="Street Address"
+                                    required
+                                />
                             </Form.Group>
 
                             <Row className="mb-3">
                                 <Col md={6}>
-                                    <Form.Control type="text" required name="city" value={formData.city} onChange={onChangeHandler} placeholder="City" />
+                                    <Form.Control
+                                        type="text"
+                                        name="city"
+                                        value={formData.city}
+                                        onChange={onChangeHandler}
+                                        placeholder="City"
+                                        required
+                                    />
                                 </Col>
                                 <Col md={6}>
-                                    <Form.Control type="text" required name="state" value={formData.state} onChange={onChangeHandler} placeholder="State" />
+                                    <Form.Control
+                                        type="text"
+                                        name="state"
+                                        value={formData.state}
+                                        onChange={onChangeHandler}
+                                        placeholder="State"
+                                        required
+                                    />
                                 </Col>
                             </Row>
 
                             <Row className="mb-4">
                                 <Col md={6}>
-                                    <Form.Control type="text" required name="zipcode" value={formData.zipcode} onChange={onChangeHandler} placeholder="Zip Code" />
+                                    <Form.Control
+                                        type="text"
+                                        name="zipcode"
+                                        value={formData.zipcode}
+                                        onChange={onChangeHandler}
+                                        placeholder="Zip Code"
+                                        required
+                                    />
                                 </Col>
                                 <Col md={6}>
-                                    <Form.Control type="text" required name="country" value={formData.country} onChange={onChangeHandler} placeholder="Country" />
+                                    <Form.Control
+                                        type="text"
+                                        name="country"
+                                        value={formData.country}
+                                        onChange={onChangeHandler}
+                                        placeholder="Country"
+                                        required
+                                    />
                                 </Col>
                             </Row>
                         </Col>
 
-                        {/* Right Column - Cart & Payment */}
-                        <Col lg={5} className="py-5"> 
+                        {/* Cart & Payment */}
+                        <Col lg={5} className="py-5">
                             <CartTotal />
 
                             <div className="my-4">
                                 <h5 className="fw-bold mb-3">Payment Method</h5>
                                 <div className="d-flex gap-2">
                                     <Button
-                                        variant={method === 'stripe' ? 'primary' : 'outline-primary'}
+                                        variant={method === "stripe" ? "primary" : "outline-primary"}
                                         size="sm"
-                                        onClick={() => setMethod('stripe')}
+                                        onClick={() => setMethod("stripe")}
                                     >
                                         Stripe
                                     </Button>
                                     <Button
-                                        variant={method === 'cod' ? 'primary' : 'outline-primary'}
+                                        variant={method === "cod" ? "primary" : "outline-primary"}
                                         size="sm"
-                                        onClick={() => setMethod('cod')}
+                                        onClick={() => setMethod("cod")}
                                     >
                                         Cash on Delivery
                                     </Button>
