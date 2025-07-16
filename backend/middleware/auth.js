@@ -42,3 +42,5 @@ const authUser = async (req, res, next) => {
         return res.status(401).json({ success: false, message: 'Invalid token' });
     }
 };
+
+module.exports = authUser;

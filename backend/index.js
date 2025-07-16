@@ -15,7 +15,7 @@ connectCloudinary()
 app.use('/api', userrouter)
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
-app.use('/api/order',orderRouter)
+app.use('/api/order', orderRouter)
 
 const startserver = async () => {
     try {
@@ -25,7 +25,8 @@ const startserver = async () => {
         })
     }
     catch (error) {
-        console.log("failed to start server.");
+        console.log("failed to start server.", error);
     }
 }
+
 startserver()
