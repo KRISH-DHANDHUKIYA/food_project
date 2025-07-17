@@ -22,25 +22,51 @@
 
 // middlewares/auth.js
 
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
+// const { JWT_SECRET } = require("../utilities/config");
+
+// const authUser = async (req, res, next) => {
+//     const authHeader = req.headers.authorization;
+
+//     if (!authHeader || !authHeader.startsWith("Bearer ")) {
+//         return res.status(401).json({ success: false, message: 'Not Authorized, please login again' });
+//     }
+
+//     const token = authHeader.split(" ")[1];
+
+//     try {
+//         const decoded = jwt.verify(token, JWT_SECRET);
+//         req.body.userId = decoded.id; // this line must exist
+//         next();
+//     } catch (error) {
+//         return res.status(401).json({ success: false, message: 'Invalid token' });
+//     }
+// };
+
+// module.exports = authUser;
+
+const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../utilities/config");
 
 const authUser = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res.status(401).json({ success: false, message: 'Not Authorized, please login again' });
+        return res.status(401).json({ success: false, message: "Not Authorized" });
     }
 
     const token = authHeader.split(" ")[1];
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        req.body.userId = decoded.id; // this line must exist
+        req.body.userId = decoded.id;
         next();
     } catch (error) {
-        return res.status(401).json({ success: false, message: 'Invalid token' });
+        console.error("JWT Error:", error);
+        return res.status(401).json({ success: false, message: "Token Invalid" });
     }
 };
 
 module.exports = authUser;
+
+
