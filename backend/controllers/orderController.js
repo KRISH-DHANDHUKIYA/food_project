@@ -1,5 +1,6 @@
 const orderModel = require("../models/orderModel")
 const userModel = require("../models/user_model")
+const mongoose = require("mongoose");
 
 // placing order using cod metheod
 // const placeOrder = async (req, res) => {
@@ -80,10 +81,12 @@ const verifyStripe = async (req, res) => {
 // all orders data for admin panel 
 const allOrders = async (req, res) => {
     try {
-
+        const orders = await orderModel.find({})
+        res.json({ success: true, orders })
     }
     catch (error) {
-        console.log(error)
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
     }
 }
 
@@ -100,31 +103,70 @@ const allOrders = async (req, res) => {
 //         res.json({ success: false, message: error.message })
 //     }
 // }
+// const userOrders = async (req, res) => {
+//   try {
+//     const { userId } = req.body;
+
+//     if (!userId) {
+//       return res.status(400).json({ success: false, message: "User ID is required" });
+//     }
+
+//     const orders = await orderModel.find({ userId }).sort({ date: -1 });
+
+//     res.status(200).json({ success: true, message: "Orders fetched successfully", orders });
+//   } catch (error) {
+//     console.error("Error fetching user orders:", error);
+//     res.status(500).json({ success: false, message: error.message });
+//   }
+// };
+// const userOrders = async (req, res) => {
+//     try {
+//         const { userId } = req.body;
+
+//         // if (!userId) {
+//         //     return res.status(400).json({ success: false, message: "User ID is required" });
+//         // }
+
+//         const orders = await orderModel.find({
+//             userId: new mongoose.Types.ObjectId(userId),
+//         }).sort({ date: -1 });
+
+//         res.status(200).json({ success: true, message: "Orders fetched successfully", orders });
+//     } catch (error) {
+//         console.error("Error fetching user orders:", error);
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// };
 const userOrders = async (req, res) => {
-  try {
-    const { userId } = req.body;
+    try {
+        const { userId } = req.body;
 
-    if (!userId) {
-      return res.status(400).json({ success: false, message: "User ID is required" });
+
+
+        const orders = await orderModel.find({
+            userId
+        })
+
+        res.status(200).json({ success: true, message: "Orders fetched successfully", orders });
+    } catch (error) {
+        console.error("Error fetching user orders:", error);
+        res.status(500).json({ success: false, message: error.message });
     }
-
-    const orders = await orderModel.find({ userId }).sort({ date: -1 });
-
-    res.status(200).json({ success: true, message: "Orders fetched successfully", orders });
-  } catch (error) {
-    console.error("Error fetching user orders:", error);
-    res.status(500).json({ success: false, message: error.message });
-  }
 };
+
 
 
 // user order ststus from admin panel
 const updateStatus = async (req, res) => {
     try {
+        const { orderId, status } = req.body
+        await orderModel.findByIdAndDelete(orderId, { status })
 
+        res.json({ success: true, message: "Status Updated" })
     }
     catch (error) {
         console.log(error)
+        res.json({ success: false, message: error.message })
     }
 }
 
