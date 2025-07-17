@@ -1,6 +1,13 @@
 const orderModel = require("../models/orderModel")
 const userModel = require("../models/user_model")
-const mongoose = require("mongoose");
+const Stripe = require("stripe")
+
+//global variables
+const currency = 'pkr'
+const Delivery_Charges = 10
+
+//stripe gateway
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 // placing order using cod metheod
 // const placeOrder = async (req, res) => {
@@ -61,22 +68,106 @@ const placeOrder = async (req, res) => {
 // placing order using stripe method
 const placeOrderStripe = async (req, res) => {
     try {
+        const { userId, items, amount, address } = req.body
+        const { origin } = req.headers
+
+        const orderData = {
+            userId,
+            items,
+            amount,
+            address,
+            paymentMethod: "Stripe",
+            payment: false,
+            date: Date.now()
+        };
+
+        const newOrder = new orderModel(orderData);
+        await newOrder.save();
+
+
+        const line_items = items.map((item) => ({
+            price_data: {
+                currency: currency,
+                product_data: {
+                    name: item.name
+                },
+                unit_amount: item.price[item.size] * 100 * 277 // converting in pkr
+            },
+            quantity: item.quantity
+        }))
+
+        line_items.push({
+            price_data: {
+                currency: currency,
+                product_data: {
+                    name: 'Delivery_Charges'
+                },
+                unit_amount: Delivery_Charges * 100 * 277 // convert in pkr
+            },
+            quantity: 1
+        })
+
+        const session = await stripe.checkout.sessions.create({
+            success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+            cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
+            line_items,
+            mode: 'payment'
+        })
+
+        res.json({ success: true, session_url: session.url })
 
     }
     catch (error) {
         console.log(error)
+        res.json({ success: false, message: error.message })
+
     }
 }
 
 // verify stripe payment (temporary method)
+// const verifyStripe = async (req, res) => {
+
+//     const { orderId, success, userId } = req.body
+
+//     try {
+//         if (success === "true") {
+//             await orderModel.findByIdAndUpdate(orderModel, { payment: true })
+//             await userModel.findByIdAndUpdate(userId, { cartData: {} })
+//         }
+//         else {
+//             await orderModel.findByIdAndDelete(orderId)
+//             res.json({ success: false })
+//         }
+//     }
+//     catch (error) {
+//         console.log(error)
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// }
+// Example backend controller:
 const verifyStripe = async (req, res) => {
     try {
+        const { success, orderId } = req.body;
+        if (!success || !orderId) {
+            return res.status(400).json({ success: false, message: "Missing success or orderId" });
+        }
 
+        // Validate orderId, find order, mark as paid, etc.
+        const order = await orderModel.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+
+        order.payment = true;
+        await order.save();
+
+        res.json({ success: true });
+    } catch (err) {
+        console.error("Error in verifyStripe:", err);
+        res.status(500).json({ success: false, message: "Server error" });
     }
-    catch (error) {
-        console.log(error)
-    }
-}
+};
+
 
 // all orders data for admin panel 
 const allOrders = async (req, res) => {
@@ -157,17 +248,34 @@ const userOrders = async (req, res) => {
 
 
 // user order ststus from admin panel
+// const updateStatus = async (req, res) => {
+//     try {
+//         const { orderId, status } = req.body
+//         await orderModel.findByIdAndDelete(orderId, { status })
+
+//         res.json({ success: true, message: "Status Updated" })
+//     }
+//     catch (error) {
+//         console.log(error)
+//         res.json({ success: false, message: error.message })
+//     }
+// }
 const updateStatus = async (req, res) => {
     try {
-        const { orderId, status } = req.body
-        await orderModel.findByIdAndDelete(orderId, { status })
+        const { orderId, status } = req.body;
 
-        res.json({ success: true, message: "Status Updated" })
+        const updatedOrder = await orderModel.findByIdAndUpdate(orderId, { status });
+
+        if (!updatedOrder) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+
+        res.json({ success: true, message: "Status Updated" });
+    } catch (error) {
+        console.error("Update Status Error:", error);
+        res.status(500).json({ success: false, message: error.message });
     }
-    catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
-    }
-}
+};
+
 
 module.exports = { placeOrder, placeOrderStripe, verifyStripe, allOrders, userOrders, updateStatus }

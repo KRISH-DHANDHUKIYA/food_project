@@ -32,7 +32,7 @@
 
 import { useEffect, useState } from "react";
 import { backendUrl, currency } from "../App";
-import axios from "axios";
+import axios from 'axios';
 import { TfiPackage } from "react-icons/tfi";
 import { Container, Row, Col, Card, Form } from "react-bootstrap";
 import { toast } from "react-toastify"
@@ -66,26 +66,48 @@ const Orders = ({ token }) => {
         }
     };
 
-    const statusHandler = async (e, orderId) => {
+    // const statusHandler = async (e, orderId) => {
+    //     try {
+    //         const response = await axios.post()(
+    //             `${backendUrl}/api/order/status`,
+    //             { orderId, status: e.target.value },
+    //             {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             }
+    //         )
+    //         if (response.data.success) {
+    //             await fetchAllOrders()
+    //         }
+    //     }
+    //     catch (error) {
+    //         console.log(error);
+    //         toast.error(response.data.message)
+    //     }
+    // }
+    const statusHandler = async (e, id) => {
+        const status = e.target.value;
+
         try {
-            const response = await axios.post()(
+            const res = await axios.post(
                 `${backendUrl}/api/order/status`,
-                { orderId, status: e.target.value },
+                { orderId: id, status }, // 👈 FIXED: use id
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`, // 👈 FIXED: use Authorization header
                     },
                 }
-            )
-            if (response.data.success) {
-                await fetchAllOrders()
-            }
+            );
+            toast.success("Order status updated.");
+            fetchAllOrders(); // Refresh after update
+        } catch (error) {
+            console.error("Failed to update status:", error.response?.data || error.message);
+            toast.error(error.response?.data?.message || "Failed to update status");
         }
-        catch (error) {
-            console.log(error);
-            toast.error(response.data.message)
-        }
-    }
+    };
+
+
 
     useEffect(() => {
         fetchAllOrders();
@@ -180,7 +202,7 @@ const Orders = ({ token }) => {
                                     </Col>
 
                                     {/* Customer Info */}
-                                    <Col xs={12} sm={6} xl={3}>
+                                    {/* <Col xs={12} sm={6} xl={3}>
                                         <p className="mb-1">
                                             <strong className="text-primary">Name: </strong>
                                             {order.address.firstName + " " + order.address.lastName}
@@ -194,7 +216,24 @@ const Orders = ({ token }) => {
                                             <strong className="text-primary">Phone: </strong>
                                             {order.address.phone}
                                         </p>
+                                    </Col> */}
+                                    <Col xs={12} sm={6} xl={3}>
+                                        <p className="mb-1">
+                                            <strong className="text-primary">Name: </strong>
+                                            {order.address?.firstName} {order.address?.lastName}
+                                        </p>
+                                        <p className="mb-1">
+                                            <strong className="text-primary">Address: </strong>
+                                            {[order.address?.street, order.address?.city, order.address?.state, order.address?.country, order.address?.zipcode]
+                                                .filter(Boolean)
+                                                .join(", ")}
+                                        </p>
+                                        <p className="mb-1">
+                                            <strong className="text-primary">Phone: </strong>
+                                            {order.address?.phone || "N/A"}
+                                        </p>
                                     </Col>
+
 
                                     {/* Order Summary */}
                                     <Col xs={12} sm={6} xl={2}>
@@ -243,3 +282,124 @@ const Orders = ({ token }) => {
 };
 
 export default Orders;
+
+// import { useEffect, useState } from "react";
+// import axios from "axios";
+// import { Container, Row, Col, Card, Form, Spinner } from "react-bootstrap";
+// import { TfiPackage } from "react-icons/tfi";
+// import { toast } from "react-toastify";
+
+// const Orders = ({ token, backendUrl, currency = "$" }) => {
+//     const [orders, setOrders] = useState([]);
+//     const [loading, setLoading] = useState(false);
+
+//     const fetchAllOrders = async () => {
+//         if (!token) return;
+
+//         try {
+//             setLoading(true);
+//             const res = await axios.post(
+//                 `${backendUrl}/api/order/list`,
+//                 {},
+//                 {
+//                     headers: { token },
+//                 }
+//             );
+//             setOrders(res.data.orders || []);
+//         } catch (error) {
+//             console.error("Fetch Orders Error:", error);
+//             toast.error("Failed to fetch orders.");
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
+
+//     const statusHandler = async (e, orderId) => {
+//         const status = e.target.value;
+//         try {
+//             const res = await axios.post(
+//                 `${backendUrl}/api/order/status`,
+//                 { id: orderId, status },
+//                 { headers: { token } }
+//             );
+//             toast.success("Order status updated.");
+//             fetchAllOrders(); // Refresh after update
+//         } catch (error) {
+//             console.error("Update Status Error:", error);
+//             toast.error("Failed to update order status.");
+//         }
+//     };
+
+//     useEffect(() => {
+//         fetchAllOrders();
+//     }, []);
+
+//     if (loading) {
+//         return (
+//             <div className="d-flex justify-content-center align-items-center vh-100">
+//                 <Spinner animation="border" variant="primary" />
+//             </div>
+//         );
+//     }
+
+//     return (
+//         <Container fluid className="py-4 min-vh-100">
+//             <Row className="g-4">
+//                 {orders.map((order) => (
+//                     <Col key={order._id} xs={12}>
+//                         <Card className="p-3 shadow-sm">
+//                             <Row className="align-items-start g-3">
+//                                 <Col xs="auto" className="d-none d-xl-flex align-items-center justify-content-center bg-light rounded" style={{ width: 80, height: 80 }}>
+//                                     <TfiPackage className="text-secondary fs-3" />
+//                                 </Col>
+
+//                                 <Col xs={12} sm={6} lg={4}>
+//                                     <strong>Items:</strong>
+//                                     <ul className="mb-0 ps-3">
+//                                         {order.items.map((item, idx) => (
+//                                             <li key={idx}>
+//                                                 {item.name} x {item.quantity}{" "}
+//                                                 <em>({item.size})</em>
+//                                             </li>
+//                                         ))}
+//                                     </ul>
+//                                 </Col>
+
+//                                 <Col xs={12} sm={6} lg={4}>
+//                                     <p className="mb-1"><strong>Name:</strong> {order.address?.firstName} {order.address?.lastName}</p>
+//                                     <p className="mb-1"><strong>Phone:</strong> {order.address?.phone}</p>
+//                                     <p className="mb-1">
+//                                         <strong>Address:</strong>{" "}
+//                                         {`${order.address?.street}, ${order.address?.city}, ${order.address?.state}, ${order.address?.country}, ${order.address?.zipcode}`}
+//                                     </p>
+//                                 </Col>
+
+//                                 <Col xs={12} lg={4}>
+//                                     <p className="mb-1"><strong>Total Items:</strong> {order.items.length}</p>
+//                                     <p className="mb-1"><strong>Method:</strong> {order.paymentMethod}</p>
+//                                     <p className="mb-1"><strong>Payment:</strong> {order.payment ? "Done" : "Pending"}</p>
+//                                     <p className="mb-1"><strong>Date:</strong> {new Date(order.date).toLocaleDateString()}</p>
+//                                     <p className="mb-1"><strong>Price:</strong> {currency}{order.amount}</p>
+//                                     <Form.Select
+//                                         size="sm"
+//                                         value={order.status}
+//                                         onChange={(e) => statusHandler(e, order._id)}
+//                                         className="mt-2 w-auto"
+//                                     >
+//                                         <option value="Order Placed">Order Placed</option>
+//                                         <option value="Packing">Packing</option>
+//                                         <option value="Shipped">Shipped</option>
+//                                         <option value="Out For Delivery">Out For Delivery</option>
+//                                         <option value="Delivered">Delivered</option>
+//                                     </Form.Select>
+//                                 </Col>
+//                             </Row>
+//                         </Card>
+//                     </Col>
+//                 ))}
+//             </Row>
+//         </Container>
+//     );
+// };
+
+// export default Orders;

@@ -194,6 +194,31 @@ const Placeorder = () => {
                 amount: getCartAmount() + delivery_charges,
             };
 
+            // if (method === "cod") {
+            //     const response = await axios.post(`${backendUrl}/api/order/place`, orderData, {
+            //         headers: {
+            //             Authorization: `Bearer ${token}`,
+            //         },
+            //     });
+
+            //     if (response.data.success) {
+            //         setCartItems({});
+            //         toast.success("Order placed successfully!");
+            //         navigate("/orders");
+            //     } else {
+            //         toast.error(response.data.message || "Order failed. Try again.");
+            //     }
+
+            //     //api for stripe payment method
+            //     const responseStripe = await axios.post(`${backendUrl}/api/order/stripe`, orderData, { headers: { token } })
+            //     if (responseStripe.data.success) {
+            //         const { session_url } = responseStripe.data
+            //         window.location.replace(session_url)
+            //     }
+            //     else {
+            //         toast.error(responseStripe.data.message)
+            //     }
+            // }
             if (method === "cod") {
                 const response = await axios.post(`${backendUrl}/api/order/place`, orderData, {
                     headers: {
@@ -208,10 +233,24 @@ const Placeorder = () => {
                 } else {
                     toast.error(response.data.message || "Order failed. Try again.");
                 }
+
+            } else if (method === "stripe") {
+                const responseStripe = await axios.post(`${backendUrl}/api/order/stripe`, orderData, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+
+                if (responseStripe.data.success) {
+                    const { session_url } = responseStripe.data;
+                    window.location.replace(session_url);
+                } else {
+                    toast.error(responseStripe.data.message);
+                }
             }
+
+
         } catch (error) {
-            toast.error("Something went wrong. Please try again.");
             console.error("Order Error:", error?.response?.data || error.message);
+            toast.error("Something went wrong. Please try again.");
         }
     };
 
