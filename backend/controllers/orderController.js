@@ -3,7 +3,7 @@ const userModel = require("../models/user_model")
 const Stripe = require("stripe")
 
 //global variables
-const currency = 'pkr'
+const currency = 'inr'
 const Delivery_Charges = 10
 
 //stripe gateway
@@ -91,7 +91,7 @@ const placeOrderStripe = async (req, res) => {
                 product_data: {
                     name: item.name
                 },
-                unit_amount: item.price[item.size] * 100 * 277 // converting in pkr
+                unit_amount: item.price[item.size] * 100 * 86 // converting in inr
             },
             quantity: item.quantity
         }))
@@ -102,7 +102,7 @@ const placeOrderStripe = async (req, res) => {
                 product_data: {
                     name: 'Delivery_Charges'
                 },
-                unit_amount: Delivery_Charges * 100 * 277 // convert in pkr
+                unit_amount: Delivery_Charges * 100 * 86 // convert in inr
             },
             quantity: 1
         })
