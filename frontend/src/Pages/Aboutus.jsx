@@ -4,7 +4,6 @@ import "../Pages.css/Aboutus.css";
 const Aboutus = () => {
     return (
         <section className="py-5">
-            {/* About Section */}
             <Container>
                 <Row className="align-items-center">
                     <Col lg={5}>
@@ -100,9 +99,6 @@ const Aboutus = () => {
                 </Container>
             </Container>
 
-
-            {/* Our Team */}
-            (
             <Container className="py-5">
                 <div className="text-center mb-5">
                     <h2>Our Team</h2>

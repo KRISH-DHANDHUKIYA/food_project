@@ -6,7 +6,6 @@ import { ShopContext } from "../Context/ShopContext";
 import { categories } from "../assets/data";
 import Title from "./Title";
 import Item from "./Item";
-import "../Pages.css/Menu.css";
 
 const Menu1 = () => {
     const { foods } = useContext(ShopContext);
@@ -78,7 +77,6 @@ const Menu1 = () => {
     return (
         <section className="py-5">
             <Container>
-                {/* Search Bar */}
                 <Row className="justify-content-center mb-4">
                     <Col xs={12} md={8} lg={6}>
                         <InputGroup className="shadow-sm rounded-pill overflow-hidden">
@@ -103,7 +101,6 @@ const Menu1 = () => {
                     </Col>
                 </Row>
 
-                {/* Category Filter */}
                 {showCategories && (
                     <Row className="mb-5">
                         <Col>
@@ -139,7 +136,6 @@ const Menu1 = () => {
                     </Row>
                 )}
 
-                {/* Sorting and Title */}
                 <Row className="align-items-center mb-4">
                     <Col xs={12} md={6}>
                         <Title title1="Food" title2="Selection" />
@@ -159,7 +155,6 @@ const Menu1 = () => {
                     </Col>
                 </Row>
 
-                {/* Food Grid */}
                 <Row className="g-4">
                     {getPaginationFoods().length > 0 ? (
                         getPaginationFoods().map((food) => (
@@ -172,7 +167,6 @@ const Menu1 = () => {
                     )}
                 </Row>
 
-                {/* Pagination */}
                 <div className="d-flex justify-content-center flex-wrap text-center mt-4 gap-2">
                     <Button
                         disabled={currentPage === 1}

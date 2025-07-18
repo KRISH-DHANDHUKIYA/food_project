@@ -3,38 +3,11 @@ const userModel = require("../models/user_model")
 const Stripe = require("stripe")
 const mongoose = require("mongoose");
 
-//global variables
 const currency = 'inr'
 const Delivery_Charges = 10
 
-//stripe gateway
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-// placing order using cod metheod
-// const placeOrder = async (req, res) => {
-//     try {
-//         const { userId, items, amount, address } = req.body
-//         const orderData = {
-//             userId,
-//             items,
-//             amount,
-//             address,
-//             paymentMethod: "COD",
-//             payment: false,
-//             date: Date.now()
-//         }
-
-//         const newOrder = new orderModel(orderData)
-//         await newOrder.save()
-
-//         await userModel.findByIdAndUpdate(userId, { cartData: {} })
-//         res.json({ success: true, message: "Order Placed" })
-//     }
-//     catch (error) {
-//         console.log(error)
-//         res.json({ success: false, message: error.message })
-//     }
-// }
 const placeOrder = async (req, res) => {
     try {
         const { userId, items, amount, address } = req.body;
@@ -56,7 +29,6 @@ const placeOrder = async (req, res) => {
         const newOrder = new orderModel(orderData);
         await newOrder.save();
 
-        // Clear user's cart after placing order
         await userModel.findByIdAndUpdate(userId, { cartData: {} });
 
         res.status(200).json({ success: true, message: "Order Placed", order: newOrder });
@@ -66,7 +38,6 @@ const placeOrder = async (req, res) => {
     }
 };
 
-// placing order using stripe method
 const placeOrderStripe = async (req, res) => {
     try {
         const { userId, items, amount, address } = req.body
@@ -92,7 +63,7 @@ const placeOrderStripe = async (req, res) => {
                 product_data: {
                     name: item.name
                 },
-                unit_amount: item.price[item.size] * 100 * 86 // converting in inr
+                unit_amount: item.price[item.size] * 100 * 86
             },
             quantity: item.quantity
         }))
@@ -103,7 +74,7 @@ const placeOrderStripe = async (req, res) => {
                 product_data: {
                     name: 'Delivery_Charges'
                 },
-                unit_amount: Delivery_Charges * 100 * 86 // convert in inr
+                unit_amount: Delivery_Charges * 100 * 86
             },
             quantity: 1
         })
@@ -115,37 +86,16 @@ const placeOrderStripe = async (req, res) => {
             mode: 'payment'
         })
 
-        res.json({ success: true, session_url: session.url })
+        res.status(200).json({ success: true, session_url: session.url })
 
     }
     catch (error) {
         console.log(error)
-        res.json({ success: false, message: error.message })
+        res.status(500).json({ success: false, message: error.message })
 
     }
 }
 
-// verify stripe payment (temporary method)
-// const verifyStripe = async (req, res) => {
-
-//     const { orderId, success, userId } = req.body
-
-//     try {
-//         if (success === "true") {
-//             await orderModel.findByIdAndUpdate(orderModel, { payment: true })
-//             await userModel.findByIdAndUpdate(userId, { cartData: {} })
-//         }
-//         else {
-//             await orderModel.findByIdAndDelete(orderId)
-//             res.json({ success: false })
-//         }
-//     }
-//     catch (error) {
-//         console.log(error)
-//         res.status(500).json({ success: false, message: error.message });
-//     }
-// }
-// Example backend controller:
 const verifyStripe = async (req, res) => {
     try {
         const { success, orderId } = req.body;
@@ -153,7 +103,6 @@ const verifyStripe = async (req, res) => {
             return res.status(400).json({ success: false, message: "Missing success or orderId" });
         }
 
-        // Validate orderId, find order, mark as paid, etc.
         const order = await orderModel.findById(orderId);
         if (!order) {
             return res.status(404).json({ success: false, message: "Order not found" });
@@ -169,12 +118,10 @@ const verifyStripe = async (req, res) => {
     }
 };
 
-
-// all orders data for admin panel 
 const allOrders = async (req, res) => {
     try {
         const orders = await orderModel.find({})
-        res.json({ success: true, orders })
+        res.status(200).json({ success: true, orders })
     }
     catch (error) {
         console.error(error);
@@ -182,58 +129,10 @@ const allOrders = async (req, res) => {
     }
 }
 
-// user orders for frotend
-// const userOrders = async (req, res) => {
-//     try {
-//         const { userId } = req.body
-//         const orders = await orderModel.find({ userId })
 
-//         res.json({ success: true, orders })
-//     }
-//     catch (error) {
-//         console.log(error)
-//         res.json({ success: false, message: error.message })
-//     }
-// }
-// const userOrders = async (req, res) => {
-//   try {
-//     const { userId } = req.body;
-
-//     if (!userId) {
-//       return res.status(400).json({ success: false, message: "User ID is required" });
-//     }
-
-//     const orders = await orderModel.find({ userId }).sort({ date: -1 });
-
-//     res.status(200).json({ success: true, message: "Orders fetched successfully", orders });
-//   } catch (error) {
-//     console.error("Error fetching user orders:", error);
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
-// const userOrders = async (req, res) => {
-//     try {
-//         const { userId } = req.body;
-
-//         // if (!userId) {
-//         //     return res.status(400).json({ success: false, message: "User ID is required" });
-//         // }
-
-//         const orders = await orderModel.find({
-//             userId: new mongoose.Types.ObjectId(userId),
-//         }).sort({ date: -1 });
-
-//         res.status(200).json({ success: true, message: "Orders fetched successfully", orders });
-//     } catch (error) {
-//         console.error("Error fetching user orders:", error);
-//         res.status(500).json({ success: false, message: error.message });
-//     }
-// };
 const userOrders = async (req, res) => {
     try {
         const { userId } = req.body;
-
-
 
         const orders = await orderModel.find({
             userId
@@ -246,21 +145,6 @@ const userOrders = async (req, res) => {
     }
 };
 
-
-
-// user order ststus from admin panel
-// const updateStatus = async (req, res) => {
-//     try {
-//         const { orderId, status } = req.body
-//         await orderModel.findByIdAndDelete(orderId, { status })
-
-//         res.json({ success: true, message: "Status Updated" })
-//     }
-//     catch (error) {
-//         console.log(error)
-//         res.json({ success: false, message: error.message })
-//     }
-// }
 const updateStatus = async (req, res) => {
     try {
         const { orderId, status } = req.body;

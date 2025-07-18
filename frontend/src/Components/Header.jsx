@@ -40,7 +40,6 @@ const Header = () => {
                         FoodExpress
                     </Link>
 
-                    {/* Mobile Cart */}
                     <div className="d-lg-none d-flex align-items-center me-2">
                         <Link
                             to="/cart"
@@ -67,7 +66,6 @@ const Header = () => {
                                 Contact Us
                             </Link>
 
-                            {/* Mobile Login/Profile */}
                             <div className="d-lg-none mt-3">
                                 {token ? (
                                     <div className="my-2 text-center">
@@ -89,7 +87,6 @@ const Header = () => {
                             </div>
                         </Nav>
 
-                        {/* Desktop Login and Cart */}
                         <div className="d-none d-lg-flex align-items-center ms-lg-3 position-relative">
                             <Link
                                 to="/cart"
@@ -158,7 +155,6 @@ const Header = () => {
                 </Container>
             </Navbar>
 
-            {/* Auth Modal */}
             <Login show={showAuthModal} handleClose={() => setShowAuthModal(false)} />
         </>
     );

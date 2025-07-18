@@ -45,17 +45,15 @@ const Login = ({ show, handleClose }) => {
                     toast.success("Login successful!");
                     handleClose();
                     navigate("/");
-                    //fetch user cart immediately after login
                     await getUserCart(response.data.data.token)
                 } else {
                     toast.error(res.data.message || "Login failed");
                 }
             }
-        } catch (err) {
-            if (err.response?.status === 409) {
+        } catch (error) {
+            if (error.response?.status === 409) {
                 toast.error("Email already registered. Please login.");
             } else {
-                // toast.error(err.response?.data?.message || "Something went wrong.");
             }
         }
     };

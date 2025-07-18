@@ -38,8 +38,7 @@ import { Container, Row, Col, Card, Form } from "react-bootstrap";
 import { toast } from "react-toastify"
 
 const Orders = ({ token }) => {
-    const [orders, setOrders] = useState([]); // ✅ Add state
-
+    const [orders, setOrders] = useState([]);
     const fetchAllOrders = async () => {
         if (!token) return;
 
@@ -53,9 +52,8 @@ const Orders = ({ token }) => {
                     },
                 }
             );
-            // console.log(response.data);
             if (response.data.success) {
-                setOrders(response.data.orders); // ✅ Save to state
+                setOrders(response.data.orders);
             }
             else {
                 toast.error(response.data.message)
@@ -66,41 +64,21 @@ const Orders = ({ token }) => {
         }
     };
 
-    // const statusHandler = async (e, orderId) => {
-    //     try {
-    //         const response = await axios.post()(
-    //             `${backendUrl}/api/order/status`,
-    //             { orderId, status: e.target.value },
-    //             {
-    //                 headers: {
-    //                     Authorization: `Bearer ${token}`,
-    //                 },
-    //             }
-    //         )
-    //         if (response.data.success) {
-    //             await fetchAllOrders()
-    //         }
-    //     }
-    //     catch (error) {
-    //         console.log(error);
-    //         toast.error(response.data.message)
-    //     }
-    // }
     const statusHandler = async (e, id) => {
         const status = e.target.value;
 
         try {
             const res = await axios.post(
                 `${backendUrl}/api/order/status`,
-                { orderId: id, status }, // 👈 FIXED: use id
+                { orderId: id, status },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`, // 👈 FIXED: use Authorization header
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             );
             toast.success("Order status updated.");
-            fetchAllOrders(); // Refresh after update
+            fetchAllOrders();
         } catch (error) {
             console.error("Failed to update status:", error.response?.data || error.message);
             toast.error(error.response?.data?.message || "Failed to update status");
@@ -114,68 +92,6 @@ const Orders = ({ token }) => {
     }, []);
 
     return (
-        // <div className="px-2 sm:px-8 py-12 min-h-screen">
-        //     <div className="flex flex-col gap-6">
-        //         {orders.map((order) => (
-        //             <div key={order._id} className="bg-light p-4 rounded-lg shadow-md">
-        //                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-[0.5fr_2fr_1fr_0.5fr_1fr] gap-4 items-start text-gray-700">
-
-        //                     {/* Icon */}
-        //                     <div className="hidden xl:flex items-center justify-center h-20 w-20 rounded-lg bg-deep">
-        //                         <TfiPackage className="text-3xl text-secondary" />
-        //                     </div>
-
-        //                     {/* Items */}
-        //                     <div className="flex flex-col gap-1">
-        //                         <p className="font-semibold text-sm">Items:</p>
-        //                         {order.items.map((item, index) => (
-        //                             <p key={index} className="text-sm">
-        //                                 {item.name} x {item.quantity}{" "}
-        //                                 <span className="italic text-xs">"{item.size}"</span>
-        //                             </p>
-        //                         ))}
-        //                     </div>
-
-        //                     {/* Customer Name & Phone */}
-        //                     <div className="text-sm">
-        //                         <p><span className="text-tertiary font-medium">Name: </span>{order.address.firstName + " " + order.address.lastName}</p>
-        //                         <p><span className="text-tertiary font-medium">Phone: </span>{order.address.phone}</p>
-        //                     </div>
-
-        //                     {/* Address */}
-        //                     <div className="text-sm">
-        //                         <p className="text-tertiary font-medium">Address:</p>
-        //                         <p>{order.address.street}</p>
-        //                         <p>{order.address.city}, {order.address.state}</p>
-        //                         <p>{order.address.country} - {order.address.zipcode}</p>
-        //                     </div>
-
-        //                     {/* Order Summary */}
-        //                     <div className="flex flex-col gap-2 text-sm">
-        //                         <p><span className="text-tertiary font-medium">Total Items: </span>{order.items.length}</p>
-        //                         <p><span className="text-tertiary font-medium">Method: </span>{order.paymentMethod}</p>
-        //                         <p><span className="text-tertiary font-medium">Payment: </span>{order.payment ? 'Done' : 'Pending'}</p>
-        //                         <p><span className="text-tertiary font-medium">Date: </span>{new Date(order.date).toLocaleDateString()}</p>
-        //                         <p><span className="text-tertiary font-medium">Price: </span>{currency}{order.amount}</p>
-
-        //                         <select
-        //                             onChange={(e) => statusHandler(e, order._id)}
-        //                             value={order.status}
-        //                             className="p-2 border rounded bg-deep text-xs max-w-xs mt-1"
-        //                         >
-        //                             <option value="Order Placed">Order Placed</option>
-        //                             <option value="Packing">Packing</option>
-        //                             <option value="Shipped">Shipped</option>
-        //                             <option value="Out For Delivery">Out For Delivery</option>
-        //                             <option value="Delivered">Delivered</option>
-        //                         </select>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         ))}
-        //     </div>
-        // </div> 
-
         <>
             <Container fluid className="py-5 min-vh-100">
                 <Row className="g-4">
@@ -183,14 +99,12 @@ const Orders = ({ token }) => {
                         <Col xs={12} key={order._id}>
                             <Card className="p-3 bg-light rounded shadow-sm">
                                 <Row className="g-3 align-items-start">
-                                    {/* Icon Box */}
                                     <Col xl={1} className="d-none d-xl-flex justify-content-center align-items-center">
                                         <div className="bg-dark text-white rounded-circle d-flex justify-content-center align-items-center" style={{ width: 60, height: 60 }}>
                                             <TfiPackage className="fs-4" />
                                         </div>
                                     </Col>
 
-                                    {/* Items */}
                                     <Col xs={12} sm={6} xl={3}>
                                         <strong className="d-block mb-1">Items:</strong>
                                         {order.items.map((item, index) => (
@@ -201,22 +115,6 @@ const Orders = ({ token }) => {
                                         ))}
                                     </Col>
 
-                                    {/* Customer Info */}
-                                    {/* <Col xs={12} sm={6} xl={3}>
-                                        <p className="mb-1">
-                                            <strong className="text-primary">Name: </strong>
-                                            {order.address.firstName + " " + order.address.lastName}
-                                        </p>
-                                        <p className="mb-1">
-                                            <strong className="text-primary">Address: </strong>
-                                            {order.address.street}, {order.address.city}, {order.address.state},{" "}
-                                            {order.address.country}, {order.address.zipcode}
-                                        </p>
-                                        <p className="mb-1">
-                                            <strong className="text-primary">Phone: </strong>
-                                            {order.address.phone}
-                                        </p>
-                                    </Col> */}
                                     <Col xs={12} sm={6} xl={3}>
                                         <p className="mb-1">
                                             <strong className="text-primary">Name: </strong>
@@ -235,7 +133,6 @@ const Orders = ({ token }) => {
                                     </Col>
 
 
-                                    {/* Order Summary */}
                                     <Col xs={12} sm={6} xl={2}>
                                         <p className="mb-1">
                                             <strong className="text-primary">Total Items:</strong> {order.items.length}
@@ -251,7 +148,6 @@ const Orders = ({ token }) => {
                                         </p>
                                     </Col>
 
-                                    {/* Price & Status */}
                                     <Col xs={12} sm={6} xl={3} className="d-flex flex-column gap-2">
                                         <p className="mb-1">
                                             <strong className="text-primary">Price:</strong> {currency}
@@ -283,123 +179,3 @@ const Orders = ({ token }) => {
 
 export default Orders;
 
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import { Container, Row, Col, Card, Form, Spinner } from "react-bootstrap";
-// import { TfiPackage } from "react-icons/tfi";
-// import { toast } from "react-toastify";
-
-// const Orders = ({ token, backendUrl, currency = "$" }) => {
-//     const [orders, setOrders] = useState([]);
-//     const [loading, setLoading] = useState(false);
-
-//     const fetchAllOrders = async () => {
-//         if (!token) return;
-
-//         try {
-//             setLoading(true);
-//             const res = await axios.post(
-//                 `${backendUrl}/api/order/list`,
-//                 {},
-//                 {
-//                     headers: { token },
-//                 }
-//             );
-//             setOrders(res.data.orders || []);
-//         } catch (error) {
-//             console.error("Fetch Orders Error:", error);
-//             toast.error("Failed to fetch orders.");
-//         } finally {
-//             setLoading(false);
-//         }
-//     };
-
-//     const statusHandler = async (e, orderId) => {
-//         const status = e.target.value;
-//         try {
-//             const res = await axios.post(
-//                 `${backendUrl}/api/order/status`,
-//                 { id: orderId, status },
-//                 { headers: { token } }
-//             );
-//             toast.success("Order status updated.");
-//             fetchAllOrders(); // Refresh after update
-//         } catch (error) {
-//             console.error("Update Status Error:", error);
-//             toast.error("Failed to update order status.");
-//         }
-//     };
-
-//     useEffect(() => {
-//         fetchAllOrders();
-//     }, []);
-
-//     if (loading) {
-//         return (
-//             <div className="d-flex justify-content-center align-items-center vh-100">
-//                 <Spinner animation="border" variant="primary" />
-//             </div>
-//         );
-//     }
-
-//     return (
-//         <Container fluid className="py-4 min-vh-100">
-//             <Row className="g-4">
-//                 {orders.map((order) => (
-//                     <Col key={order._id} xs={12}>
-//                         <Card className="p-3 shadow-sm">
-//                             <Row className="align-items-start g-3">
-//                                 <Col xs="auto" className="d-none d-xl-flex align-items-center justify-content-center bg-light rounded" style={{ width: 80, height: 80 }}>
-//                                     <TfiPackage className="text-secondary fs-3" />
-//                                 </Col>
-
-//                                 <Col xs={12} sm={6} lg={4}>
-//                                     <strong>Items:</strong>
-//                                     <ul className="mb-0 ps-3">
-//                                         {order.items.map((item, idx) => (
-//                                             <li key={idx}>
-//                                                 {item.name} x {item.quantity}{" "}
-//                                                 <em>({item.size})</em>
-//                                             </li>
-//                                         ))}
-//                                     </ul>
-//                                 </Col>
-
-//                                 <Col xs={12} sm={6} lg={4}>
-//                                     <p className="mb-1"><strong>Name:</strong> {order.address?.firstName} {order.address?.lastName}</p>
-//                                     <p className="mb-1"><strong>Phone:</strong> {order.address?.phone}</p>
-//                                     <p className="mb-1">
-//                                         <strong>Address:</strong>{" "}
-//                                         {`${order.address?.street}, ${order.address?.city}, ${order.address?.state}, ${order.address?.country}, ${order.address?.zipcode}`}
-//                                     </p>
-//                                 </Col>
-
-//                                 <Col xs={12} lg={4}>
-//                                     <p className="mb-1"><strong>Total Items:</strong> {order.items.length}</p>
-//                                     <p className="mb-1"><strong>Method:</strong> {order.paymentMethod}</p>
-//                                     <p className="mb-1"><strong>Payment:</strong> {order.payment ? "Done" : "Pending"}</p>
-//                                     <p className="mb-1"><strong>Date:</strong> {new Date(order.date).toLocaleDateString()}</p>
-//                                     <p className="mb-1"><strong>Price:</strong> {currency}{order.amount}</p>
-//                                     <Form.Select
-//                                         size="sm"
-//                                         value={order.status}
-//                                         onChange={(e) => statusHandler(e, order._id)}
-//                                         className="mt-2 w-auto"
-//                                     >
-//                                         <option value="Order Placed">Order Placed</option>
-//                                         <option value="Packing">Packing</option>
-//                                         <option value="Shipped">Shipped</option>
-//                                         <option value="Out For Delivery">Out For Delivery</option>
-//                                         <option value="Delivered">Delivered</option>
-//                                     </Form.Select>
-//                                 </Col>
-//                             </Row>
-//                         </Card>
-//                     </Col>
-//                 ))}
-//             </Row>
-//         </Container>
-//     );
-// };
-
-// export default Orders;

@@ -36,7 +36,7 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, [showSidebar]);
 
-  const desktopSidebarWidth = "220px"; // Define desktop sidebar width
+  const desktopSidebarWidth = "220px";
 
   return (
     <>
@@ -46,7 +46,6 @@ function App() {
         <Login setToken={setToken} />
       ) : (
         <div className="d-flex flex-column min-vh-100">
-          {/* Top Navbar for Mobile */}
           <div className="d-md-none d-flex align-items-center justify-content-between bg-dark text-white px-3 py-2">
             <FaBars onClick={toggleSidebar} style={{ cursor: "pointer" }} />
             <strong className="fs-5 fs-md-4">FoodExpress</strong>
@@ -54,8 +53,6 @@ function App() {
           </div>
 
           <div className="d-flex flex-grow-1">
-            {/* Sidebar Component */}
-            {/* The Sidebar component now handles its own display logic (fixed vs. relative) */}
             <Sidebar
               setToken={setToken}
               onClose={closeSidebar}
@@ -63,18 +60,15 @@ function App() {
               windowWidth={windowWidth}
             />
 
-            {/* Main Content */}
             <div
               className="flex-grow-1 p-3"
               style={{
-                // Adjust margin-left based on screen size and sidebar state
                 marginLeft: windowWidth < 768
-                  ? (showSidebar ? "70vw" : 0) // Mobile: adjust when sidebar is open
-                  : desktopSidebarWidth, // Desktop: always account for fixed sidebar width
+                  ? (showSidebar ? "70vw" : 0)
+                  : desktopSidebarWidth,
                 transition: "margin-left 0.3s ease",
-                // This will make only the main content scrollable vertically
                 overflowY: "auto",
-                height: "100vh", // Ensures the main content takes full height to enable scroll
+                height: "100vh",
               }}
             >
               <Routes>
@@ -84,7 +78,6 @@ function App() {
               </Routes>
             </div>
 
-            {/* Optional: Overlay when sidebar is open on mobile */}
             {windowWidth < 768 && showSidebar && (
               <div
                 className="position-fixed top-0 bottom-0 left-0 right-0"
