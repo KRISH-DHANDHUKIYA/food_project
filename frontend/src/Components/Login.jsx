@@ -55,7 +55,7 @@ const Login = ({ show, handleClose }) => {
             if (err.response?.status === 409) {
                 toast.error("Email already registered. Please login.");
             } else {
-                toast.error(err.response?.data?.message || "Something went wrong.");
+                // toast.error(err.response?.data?.message || "Something went wrong.");
             }
         }
     };

@@ -1,6 +1,7 @@
 const orderModel = require("../models/orderModel")
 const userModel = require("../models/user_model")
 const Stripe = require("stripe")
+const mongoose = require("mongoose");
 
 //global variables
 const currency = 'inr'
