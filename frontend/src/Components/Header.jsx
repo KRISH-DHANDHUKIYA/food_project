@@ -3,7 +3,7 @@ import { Badge, Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
 import { TbArrowNarrowRight, TbUserCircle } from "react-icons/tb";
-import Login from "../Components/Login"
+import Login from "../Components/Login";
 
 const Header = () => {
     const { getCartCount, token } = useContext(ShopContext);
@@ -26,26 +26,14 @@ const Header = () => {
 
     return (
         <>
-            <Navbar
-                expand="lg"
-                bg="dark"
-                variant="dark"
-                sticky="top"
-                className="py-3 shadow-sm"
-                expanded={expanded}
-                onToggle={() => setExpanded(!expanded)}
-            >
+            <Navbar expand="lg" bg="dark" variant="dark" sticky="top" className="py-3 shadow-sm" expanded={expanded} onToggle={() => setExpanded(!expanded)}>
                 <Container>
                     <Link to="/" onClick={handleNavLinkClick} className="navbar-brand fw-bold fs-4 text-decoration-none text-light">
                         FoodExpress
                     </Link>
 
                     <div className="d-lg-none d-flex align-items-center me-2">
-                        <Link
-                            to="/cart"
-                            onClick={handleNavLinkClick}
-                            className="btn btn-primary py-1 px-2 d-flex align-items-center"
-                        >
+                        <Link to="/cart" onClick={handleNavLinkClick} className="btn btn-primary py-1 px-2 d-flex align-items-center">
                             Cart <Badge bg="light" text="dark" className="ms-2">{getCartCount()}</Badge>
                         </Link>
                     </div>
@@ -66,90 +54,65 @@ const Header = () => {
                                 Contact Us
                             </Link>
 
-                            <div className="d-lg-none mt-3">
-                                {token ? (
-                                    <div className="my-2 text-center">
-                                        <Link to="/profile" onClick={handleNavLinkClick}>
-                                            <TbUserCircle style={{ fontSize: "29px", color: "white" }} />
-                                        </Link>
+                            <div className="d-lg-none mt-3 position-relative text-center">
+                                {token ? (<>
+                                    <div className="my-2" onClick={() => setShowDropdown(!showDropdown)} style={{ cursor: "pointer" }}>
+                                        <TbUserCircle style={{ fontSize: "29px", color: "white" }} />
                                     </div>
-                                ) : (
+
+                                    {showDropdown && (<ul
+                                        className="list-unstyled mb-0 bg-white p-2 rounded position-absolute start-50 translate-middle-x"
+                                        style={{ top: '100%', zIndex: 1000, width: '10rem', boxShadow: '0 0 0 1px rgba(15, 23, 42, 0.15)' }} >
+                                        <li
+                                            onClick={() => { handleNavLinkClick(); navigate("/orders"); setShowDropdown(false); }}
+                                            style={{ cursor: "pointer" }} className="d-flex align-items-center justify-content-between">
+                                            <span>Orders</span>
+                                            <TbArrowNarrowRight style={{ opacity: 0.5, fontSize: "19px" }} />
+                                        </li>
+                                        <li
+                                            onClick={() => { handleNavLinkClick(); logout(); setShowDropdown(false); }}
+                                            style={{ cursor: "pointer" }} className="d-flex align-items-center justify-content-between mt-2" >
+                                            <span>Logout</span>
+                                            <TbArrowNarrowRight style={{ opacity: 0.5, fontSize: "19px" }} />
+                                        </li>
+                                    </ul>)}
+                                </>) : (
                                     <Button
-                                        onClick={() => {
-                                            setShowAuthModal(true);
-                                            handleNavLinkClick();
-                                        }}
-                                        className="btn btn-danger w-100"
-                                    >
+                                        onClick={() => { setShowAuthModal(true); handleNavLinkClick(); }} className="btn btn-danger w-100" >
                                         Login
-                                    </Button>
-                                )}
+                                    </Button>)}
                             </div>
                         </Nav>
 
                         <div className="d-none d-lg-flex align-items-center ms-lg-3 position-relative">
-                            <Link
-                                to="/cart"
-                                onClick={handleNavLinkClick}
-                                className="btn btn-primary me-2 d-flex align-items-center"
-                            >
+                            <Link to="/cart" onClick={handleNavLinkClick} className="btn btn-primary me-2 d-flex align-items-center" >
                                 Cart <Badge bg="light" text="dark" className="ms-2">{getCartCount()}</Badge>
                             </Link>
 
-                            {token ? (
-                                <>
-                                    <div
-                                        className="me-2"
-                                        onClick={() => setShowDropdown(!showDropdown)}
-                                        style={{ cursor: "pointer" }}
-                                    >
-                                        <TbUserCircle style={{ fontSize: "29px", color: "white" }} />
-                                    </div>
+                            {token ? (<>
+                                <div className="me-2" onClick={() => setShowDropdown(!showDropdown)} style={{ cursor: "pointer" }}>
+                                    <TbUserCircle style={{ fontSize: "29px", color: "white" }} />
+                                </div>
 
-                                    {showDropdown && (
-                                        <ul
-                                            className="list-unstyled mb-0 bg-white p-2 rounded position-absolute"
-                                            style={{
-                                                width: '8rem',
-                                                top: '100%',
-                                                right: 0,
-                                                zIndex: 1000,
-                                                boxShadow: '0 0 0 1px rgba(15, 23, 42, 0.15)'
-                                            }}
-                                        >
-                                            <li
-                                                onClick={() => {
-                                                    handleNavLinkClick();
-                                                    navigate("/orders");
-                                                }}
-                                                style={{ cursor: "pointer" }}
-                                                className="d-flex align-items-center"
-                                            >
-                                                <span className="me-2">Orders</span>
-                                                <TbArrowNarrowRight style={{ opacity: 0.5, fontSize: "19px" }} />
-                                            </li>
-                                            <li
-                                                onClick={() => {
-                                                    handleNavLinkClick();
-                                                    logout();
-                                                }}
-                                                style={{ cursor: "pointer" }}
-                                                className="d-flex align-items-center"
-                                            >
-                                                <span className="me-2">Logout</span>
-                                                <TbArrowNarrowRight style={{ opacity: 0.5, fontSize: "19px" }} />
-                                            </li>
-                                        </ul>
-                                    )}
-                                </>
-                            ) : (
-                                <Button
-                                    onClick={() => setShowAuthModal(true)}
-                                    className="btn btn-danger"
-                                >
+                                {showDropdown && (<ul
+                                    className="list-unstyled mb-0 bg-white p-2 rounded position-absolute"
+                                    style={{ width: '8rem', top: '100%', right: 0, zIndex: 1000, boxShadow: '0 0 0 1px rgba(15, 23, 42, 0.15)' }}>
+                                    <li onClick={() => { handleNavLinkClick(); navigate("/orders"); setShowDropdown(false); }}
+                                        style={{ cursor: "pointer" }} className="d-flex align-items-center">
+                                        <span className="me-2">Orders</span>
+                                        <TbArrowNarrowRight style={{ opacity: 0.5, fontSize: "19px" }} />
+                                    </li>
+                                    <li
+                                        onClick={() => { handleNavLinkClick(); logout(); setShowDropdown(false); }}
+                                        style={{ cursor: "pointer" }} className="d-flex align-items-center"  >
+                                        <span className="me-2">Logout</span>
+                                        <TbArrowNarrowRight style={{ opacity: 0.5, fontSize: "19px" }} />
+                                    </li>
+                                </ul>)}
+                            </>) : (
+                                <Button onClick={() => setShowAuthModal(true)} className="btn btn-danger">
                                     Login
-                                </Button>
-                            )}
+                                </Button>)}
                         </div>
                     </Navbar.Collapse>
                 </Container>

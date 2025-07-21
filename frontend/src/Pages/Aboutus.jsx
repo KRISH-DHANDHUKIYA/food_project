@@ -99,7 +99,8 @@ const Aboutus = () => {
                 </Container>
             </Container>
 
-            <Container className="py-5">
+
+            <Container className="pt-5">
                 <div className="text-center mb-5">
                     <h2>Our Team</h2>
                     <p>

@@ -71,9 +71,9 @@ const Add = () => {
     };
 
     return (
-        <Container style={{ maxWidth: "720px" }} className="py-4">
+        <Container className="py-4">
             <ToastContainer position="top-right" autoClose={3000} />
-            <h3 className="mb-4 text-center">Add Product</h3>
+            <h3 className="mb-4">Add Product</h3>
             <Form onSubmit={onSubmitHandler}>
                 <Form.Group className="mb-3" controlId="productName">
                     <Form.Label>Product Name</Form.Label>
@@ -194,7 +194,7 @@ const Add = () => {
                     />
                 </Form.Group>
 
-                <Button type="submit" variant="dark" className="w-100 py-2">
+                <Button type="submit" variant="dark" className="py-2">
                     Add Product
                 </Button>
             </Form>

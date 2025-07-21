@@ -50,12 +50,18 @@ const Login = ({ show, handleClose }) => {
                     toast.error(res.data.message || "Login failed");
                 }
             }
-        } catch (error) {
+        }
+
+        catch (error) {
             if (error.response?.status === 409) {
                 toast.error("Email already registered. Please login.");
+            } else if (error.response?.status === 401) {
+                toast.error("Invalid email or password, or your email is not verified.");
             } else {
+                toast.error(error.response?.data?.message);
             }
         }
+
     };
 
     useEffect(() => {

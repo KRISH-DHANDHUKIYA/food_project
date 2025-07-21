@@ -97,7 +97,7 @@ const removeProduct = async (req, res) => {
 
 const listProduct = async (req, res) => {
     try {
-        const products = await productModel.find().sort({ date: -1 }); // latest first
+        const products = await productModel.find().sort({ date: -1 }); 
         return res.status(200).json({
             status: true,
             data: {

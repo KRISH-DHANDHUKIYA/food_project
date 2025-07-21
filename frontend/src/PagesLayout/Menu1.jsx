@@ -136,7 +136,7 @@ const Menu1 = () => {
                     </Row>
                 )}
 
-                <Row className="align-items-center mb-4">
+                <Row className="align-items-center mb-5">
                     <Col xs={12} md={6}>
                         <Title title1="Food" title2="Selection" />
                     </Col>
@@ -171,7 +171,7 @@ const Menu1 = () => {
                     <Button
                         disabled={currentPage === 1}
                         onClick={() => setCurrentPage((prev) => prev - 1)}
-                        className="btn btn-secondary px-3 py-1"
+                        className="btn btn-danger px-3 py-1"
                     >
                         Previous
                     </Button>
@@ -188,7 +188,7 @@ const Menu1 = () => {
                     <Button
                         disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage((prev) => prev + 1)}
-                        className="btn btn-secondary px-3 py-1"
+                        className="btn btn-danger px-3 py-1"
                     >
                         Next
                     </Button>

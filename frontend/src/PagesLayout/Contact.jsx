@@ -1,7 +1,47 @@
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { FaEnvelope, FaHeadphones, FaLocationDot } from "react-icons/fa6";
+import { useState } from "react";
 
 const Contact = () => {
+
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: ""
+    });
+
+    const [errors, setErrors] = useState({});
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+        setErrors((prev) => ({ ...prev, [name]: "" }));
+    };
+
+
+    const validate = () => {
+        const newErrors = {};
+        if (!formData.name.trim()) newErrors.name = "Name is required";
+        if (!formData.email.trim()) newErrors.email = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email is invalid";
+        if (!formData.message.trim()) newErrors.message = "Message is required";
+        return newErrors;
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+        } else {
+            // console.log("Form submitted:", formData);
+
+            setFormData({ name: "", email: "", message: "" });
+            setErrors({});
+        }
+    };
+
+
     return (
         <>
             <section className="mt-5">
@@ -9,19 +49,38 @@ const Contact = () => {
                     <Row className="gy-5">
                         <Col xs={12} xl={6}>
                             <div className="mb-4">
-                                <h3 className="fw-bold">Get in <span className="text-success">Touch</span></h3>
+                                <h3 className="fw-bold">
+                                    Get in <span className="text-success">Touch</span>
+                                </h3>
                                 <p>
                                     Have a question or need help? Send us a message, and we will get back to you as soon as possible.
                                 </p>
                             </div>
 
-                            <Form>
+                            <Form onSubmit={handleSubmit} noValidate>
                                 <Row>
                                     <Col md={6} className="mb-3">
-                                        <Form.Control type="text" placeholder="Enter Your Name" />
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter Your Name"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            isInvalid={!!errors.name}
+                                        />
+                                        <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
                                     </Col>
+
                                     <Col md={6} className="mb-3">
-                                        <Form.Control type="email" placeholder="Enter Your Email" />
+                                        <Form.Control
+                                            type="email"
+                                            placeholder="Enter Your Email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            isInvalid={!!errors.email}
+                                        />
+                                        <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                                     </Col>
                                 </Row>
 
@@ -30,14 +89,19 @@ const Contact = () => {
                                         as="textarea"
                                         rows={4}
                                         placeholder="Write Your Message Here"
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.message}
                                     />
+                                    <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
                                 </Form.Group>
 
-                                <Button variant="success" className="rounded shadow-sm">
+                                <Button type="submit" variant="success" className="rounded shadow-sm">
                                     Send Message
                                 </Button>
                             </Form>
-                        </Col>
+                        </Col >
 
                         <Col xs={12} xl={6}>
                             <div className="mb-4">
