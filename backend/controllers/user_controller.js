@@ -2,6 +2,7 @@ const usermodel = require('../models/user_model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../utilities/config');
+const { Sendmail } = require('../utilities/nodemailer')
 
 const createToken = (id) => {
     return jwt.sign({ id }, JWT_SECRET, { expiresIn: '7d' });
@@ -31,6 +32,39 @@ const registerUser = async (req, res) => {
         const savedUser = await newUser.save();
 
         const token = createToken(savedUser._id);
+
+
+        await Sendmail(
+            newUser.email,
+            `WELCOME TO FOOD EXPRESS, ${newUser.name} 🍽️`,
+            'WE ARE HAPPY TO HAVE YOU AS A USER',
+            `
+    <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #fefefe;">
+      <h2 style="color: #ff5722;">Hey ${newUser.name}, welcome to <span style="color:#222;">Food Express!</span> 🍕</h2>
+      <p>We're thrilled to have you on board. Get ready to explore our delicious menu, place orders with ease, and enjoy fast delivery to your doorstep!</p>
+
+      <a 
+        href="http://localhost:5173/"
+        style="display: inline-block; padding: 12px 24px; background-color: #ff5722; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0;"
+      >
+        🍔 Start Ordering Now
+      </a>
+
+      <p>New here? Watch how Food Express works:</p>
+      <a 
+        href="https://www.youtube.com/watch?v=o1BhCIRYnWI&t=1653s" 
+        target="_blank"
+        style="color: #2196f3;"
+      >
+        ▶ CLICK TO WATCH VIDEO
+      </a>
+
+      <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;" />
+      <p style="font-size: 0.9em; color: #777;">If you didn’t create an account, no worries — just ignore this email.</p>
+    </div>
+  `
+        );
+
 
         return res.status(200).json({ status: true, data: { message: "User created successfully", user: savedUser, token: token } });
     }
