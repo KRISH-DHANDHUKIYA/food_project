@@ -55,7 +55,7 @@ const Orders = () => {
                         <Card key={i} className="mb-3 p-3 rounded shadow-sm bg-light">
                             <Row className="g-3 align-items-center">
                                 <Col xs={4} sm={2} className="text-center">
-                                    <Image src={item.image} alt="" fluid rounded style={{ maxWidth: "64px" }} />
+                                    <Image src={item.image} alt="image" fluid rounded style={{ maxWidth: "64px" }} />
                                 </Col>
 
                                 <Col xs={8} sm={10}>

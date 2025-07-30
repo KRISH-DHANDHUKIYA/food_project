@@ -68,7 +68,7 @@ const Cart1 = () => {
                                     <Card.Body>
                                         <Row className="align-items-center">
                                             <Col xs={3} sm={2}>
-                                                <Image src={productData.image} alt="" fluid rounded />
+                                                <Image src={productData.image}  fluid rounded />
                                             </Col>
                                             <Col xs={9} sm={10}>
                                                 <div className="d-flex justify-content-between align-items-start">

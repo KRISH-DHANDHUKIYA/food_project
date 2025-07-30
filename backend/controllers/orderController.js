@@ -22,7 +22,7 @@ const placeOrder = async (req, res) => {
             amount,
             address,
             paymentMethod: "COD",
-            payment: false,
+            payment: true,
             date: Date.now()
         };
 
@@ -95,6 +95,7 @@ const placeOrderStripe = async (req, res) => {
 
     }
 }
+
 
 const verifyStripe = async (req, res) => {
     try {

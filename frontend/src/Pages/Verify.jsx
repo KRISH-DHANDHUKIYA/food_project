@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom"
 import axios from "axios"
 import { toast } from "react-toastify"
 import { useEffect } from "react"
+import { Container, Row, Col } from 'react-bootstrap'
 
 const Verify = () => {
 
@@ -49,9 +50,13 @@ const Verify = () => {
 
     return (
         <>
-            <div>
-                verify
-            </div>
+            <Container className="text-center my-4">
+                <Row>
+                    <Col>
+                        Verify
+                    </Col>
+                </Row>
+            </Container>
         </>
     )
 }

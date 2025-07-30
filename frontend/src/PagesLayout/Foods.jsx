@@ -11,6 +11,7 @@ import Item from "./Item";
 const Foods = () => {
 
     const { foods } = useContext(ShopContext);
+    
     const [popularFoods, setPopularFoods] = useState([]);
 
     useEffect(() => {

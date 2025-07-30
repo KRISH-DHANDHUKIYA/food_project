@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
     {
         type: Object,
         default: {}
-    },
+    }
 }, { timestamps: true }, { minimize: false })
 
 module.exports = mongoose.model('user', userSchema)

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { Card, Button, Image, ButtonGroup } from "react-bootstrap";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { TbShoppingBagPlus } from "react-icons/tb";
@@ -37,7 +37,7 @@ const Item = ({ food }) => {
                     </div>
 
                     <p className="text-muted small mb-3"
-                        style={{ height: "5.5em", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        style={{ height: "6em", overflow: "hidden", textOverflow: "ellipsis" }}>
                         {food.description}
                     </p>
 

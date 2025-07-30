@@ -65,7 +65,6 @@ const ShopContextProvider = (props) => {
         let cartData = structuredClone(cartItems);
         cartData[itemId][size] = quantity;
         setCartItems(cartData);
-
     };
 
     const getCartAmount = () => {
@@ -124,13 +123,15 @@ const ShopContextProvider = (props) => {
         getCartAmount,
         backendUrl,
         token,
-        setToken,
+        setToken
     };
 
     return (
-        <ShopContext.Provider value={contextValue}>
-            {props.children}
-        </ShopContext.Provider>
+        <>
+            <ShopContext.Provider value={contextValue}>
+                {props.children}
+            </ShopContext.Provider>
+        </>
     );
 };
 

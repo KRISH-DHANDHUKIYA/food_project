@@ -4,7 +4,8 @@ import "../Pages.css/Aboutus.css";
 const Aboutus = () => {
     return (
         <section className="py-5">
-            <Container>
+
+            <Container className="pb-5">
                 <Row className="align-items-center">
                     <Col lg={5}>
                         <Image
@@ -28,7 +29,6 @@ const Aboutus = () => {
                     </Col>
                 </Row>
             </Container>
-
 
             <Container fluid className="bg-success bg-opacity-10 py-5">
                 <Container>

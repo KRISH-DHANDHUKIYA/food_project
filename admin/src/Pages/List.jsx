@@ -3,15 +3,7 @@ import { useState, useEffect } from "react";
 import { backendUrl, currency } from "../App";
 import { toast } from "react-toastify";
 import { TbTrash } from "react-icons/tb";
-import {
-    Container,
-    Row,
-    Col,
-    Table,
-    Image,
-    Button,
-    Spinner,
-} from "react-bootstrap";
+import {Container,Row,Col,Table,Image,Button,Spinner} from "react-bootstrap";
 
 const List = ({ token }) => {
     const [list, setList] = useState([]);
@@ -63,6 +55,7 @@ const List = ({ token }) => {
     }, []);
 
     return (
+        <>
         <Container className="px-0 py-5">
             <h4 className="mb-4 text-center text-md-start">Product List</h4>
 
@@ -117,6 +110,7 @@ const List = ({ token }) => {
                 </div>
             )}
         </Container>
+        </>
     );
 };
 
