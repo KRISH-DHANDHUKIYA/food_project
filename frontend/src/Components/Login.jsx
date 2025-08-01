@@ -17,9 +17,7 @@ const Login = ({ show, handleClose }) => {
         try {
             if (mode === "Sign Up") {
                 const res = await axios.post(`${backendUrl}/api/register`, {
-                    name,
-                    email,
-                    password,
+                    name, email, password,
                 });
 
                 const tokenReceived = res.data.token || res.data.data?.token;
@@ -34,8 +32,7 @@ const Login = ({ show, handleClose }) => {
                 }
             } else {
                 const res = await axios.post(`${backendUrl}/api/login`, {
-                    email,
-                    password,
+                    email, password,
                 });
 
                 const tokenReceived = res.data.token || res.data.data?.token;
@@ -61,7 +58,6 @@ const Login = ({ show, handleClose }) => {
                 toast.error(error.response?.data?.message);
             }
         }
-
     };
 
     useEffect(() => {
@@ -69,84 +65,57 @@ const Login = ({ show, handleClose }) => {
     }, [token]);
 
     return (
-        <Modal show={show} onHide={handleClose} centered>
-            <Modal.Body className="p-4">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h4 className="mb-0 fw-bold">{mode}</h4>
-                    <Button variant="light" size="sm" onClick={handleClose}>✕</Button>
-                </div>
+        <>
+            <Modal show={show} onHide={handleClose} centered>
+                <Modal.Body className="p-4">
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <h4 className="mb-0 fw-bold">{mode}</h4>
+                        <Button variant="light" size="sm" onClick={handleClose}>✕</Button>
+                    </div>
 
-                <Form onSubmit={handleSubmit}>
-                    {mode === "Sign Up" && (
+                    <Form onSubmit={handleSubmit}>
+                        {mode === "Sign Up" && (
+                            <Form.Group className="mb-3">
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control type="text" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)} required autoComplete="name" />
+                            </Form.Group>
+                        )}
+
                         <Form.Group className="mb-3">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter your name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                                autoComplete="name"
-                            />
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
                         </Form.Group>
-                    )}
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                            type="email"
-                            placeholder="Enter email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            autoComplete="email"
-                        />
-                    </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete={mode === "Sign Up" ? "new-password" : "current-password"} />
+                        </Form.Group>
 
-                    <Form.Group className="mb-4">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="Enter password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            autoComplete={mode === "Sign Up" ? "new-password" : "current-password"}
-                        />
-                    </Form.Group>
+                        <Button type="submit" className="w-100 mb-3" variant="primary">
+                            {mode}
+                        </Button>
+                    </Form>
 
-                    <Button type="submit" className="w-100 mb-3" variant="primary">
-                        {mode}
-                    </Button>
-                </Form>
-
-                <div className="text-center">
-                    {mode === "Login" ? (
-                        <p>
-                            Don’t have an account?{" "}
-                            <span
-                                className="text-primary fw-semibold"
-                                style={{ cursor: "pointer" }}
-                                onClick={() => setMode("Sign Up")}
-                            >
-                                Sign Up
-                            </span>
-                        </p>
-                    ) : (
-                        <p>
-                            Already have an account?{" "}
-                            <span
-                                className="text-primary fw-semibold"
-                                style={{ cursor: "pointer" }}
-                                onClick={() => setMode("Login")}
-                            >
-                                Login
-                            </span>
-                        </p>
-                    )}
-                </div>
-            </Modal.Body>
-        </Modal>
+                    <div className="text-center">
+                        {mode === "Login" ? (
+                            <p>
+                                Don’t have an account?{" "}
+                                <span className="text-primary fw-semibold" style={{ cursor: "pointer" }} onClick={() => setMode("Sign Up")}>
+                                    Sign Up
+                                </span>
+                            </p>
+                        ) : (
+                            <p>
+                                Already have an account?{" "}
+                                <span className="text-primary fw-semibold" style={{ cursor: "pointer" }} onClick={() => setMode("Login")}>
+                                    Login
+                                </span>
+                            </p>
+                        )}
+                    </div>
+                </Modal.Body>
+            </Modal>
+        </>
     );
 };
 

@@ -95,8 +95,9 @@ const ShopContextProvider = (props) => {
             } else {
                 toast.error(response.data.data.message || "Failed to fetch product list");
             }
-        } catch (error) {
-            console.error(error);
+        } 
+        catch (error) {
+            // console.error(error);
             // toast.error(error.message || "Failed to fetch products");
         }
     };
