@@ -22,7 +22,6 @@ const Placeorder = () => {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
-        email: "",
         street: "",
         city: "",
         country: "",
@@ -126,17 +125,6 @@ const Placeorder = () => {
                                     />
                                 </Col>
                             </Row>
-
-                            <Form.Group className="mb-3">
-                                <Form.Control
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={onChangeHandler}
-                                    placeholder="Email"
-                                    required
-                                />
-                            </Form.Group>
 
                             <Form.Group className="mb-3">
                                 <Form.Control
