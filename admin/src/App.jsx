@@ -53,12 +53,7 @@ function App() {
           </div>
 
           <div className="d-flex flex-grow-1">
-            <Sidebar
-              setToken={setToken}
-              onClose={closeSidebar}
-              isOpen={showSidebar}
-              windowWidth={windowWidth}
-            />
+            <Sidebar setToken={setToken} onClose={closeSidebar} isOpen={showSidebar} windowWidth={windowWidth} />
 
             <div
               className="flex-grow-1 p-3"
@@ -82,13 +77,9 @@ function App() {
               <div
                 className="position-fixed top-0 bottom-0 left-0 right-0"
                 style={{
-                  backgroundColor: "rgba(0, 0, 0, 0.5)",
-                  zIndex: 1040,
-                  width: "100vw",
-                  height: "100vh",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1040, width: "100vw", height: "100vh",
                 }}
-                onClick={closeSidebar}
-              ></div>
+                onClick={closeSidebar}></div>
             )}
           </div>
         </div>

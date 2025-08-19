@@ -71,134 +71,88 @@ const Add = () => {
     };
 
     return (
-        <Container className="py-4">
-            <ToastContainer position="top-right" autoClose={3000} />
-            <h3 className="mb-4">Add Product</h3>
-            <Form onSubmit={onSubmitHandler}>
-                <Form.Group className="mb-3" controlId="productName">
-                    <Form.Label>Product Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Write here..."
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </Form.Group>
+        <>
+            <Container className="py-4">
+                <ToastContainer position="top-right" autoClose={3000} />
+                <h3 className="mb-4">Add Product</h3>
+                <Form onSubmit={onSubmitHandler}>
+                    <Form.Group className="mb-3" controlId="productName">
+                        <Form.Label>Product Name</Form.Label>
+                        <Form.Control type="text" placeholder="Write here..." value={name} onChange={(e) => setName(e.target.value)} required />
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="productDescription">
-                    <Form.Label>Product Description</Form.Label>
-                    <Form.Control
-                        as="textarea"
-                        rows={4}
-                        placeholder="Write here..."
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="productDescription">
+                        <Form.Label>Product Description</Form.Label>
+                        <Form.Control as="textarea" rows={4} placeholder="Write here..." value={description} onChange={(e) => setDescription(e.target.value)} required />
+                    </Form.Group>
 
-                <Row className="mb-3">
-                    <Col xs={12} sm={6}>
-                        <Form.Group controlId="productCategory">
-                            <Form.Label>Category</Form.Label>
-                            <Form.Select value={category} onChange={(e) => setCategory(e.target.value)}>
-                                <option value="Curry">Curry</option>
-                                <option value="Pizza">Pizza</option>
-                                <option value="Rice">Rice</option>
-                                <option value="Deserts">Deserts</option>
-                                <option value="Drinks">Drinks</option>
-                                <option value="Juices">Juices</option>
-                                <option value="Fruits">Fruits</option>
-                            </Form.Select>
-                        </Form.Group>
-                    </Col>
+                    <Row className="mb-3">
+                        <Col xs={12} sm={6}>
+                            <Form.Group controlId="productCategory">
+                                <Form.Label>Category</Form.Label>
+                                <Form.Select value={category} onChange={(e) => setCategory(e.target.value)}>
+                                    <option value="Curry">Curry</option>
+                                    <option value="Pizza">Pizza</option>
+                                    <option value="Rice">Rice</option>
+                                    <option value="Deserts">Deserts</option>
+                                    <option value="Drinks">Drinks</option>
+                                    <option value="Juices">Juices</option>
+                                    <option value="Fruits">Fruits</option>
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
 
-                    <Col xs={12} sm={6}>
-                        <Form.Group>
-                            <Form.Label>Image</Form.Label>
-                            <div className="d-flex align-items-center">
-                                <Form.Label
-                                    htmlFor="imageUpload"
-                                    className="border rounded"
-                                    style={{
-                                        width: "56px",
-                                        height: "56px",
-                                        cursor: "pointer",
-                                        overflow: "hidden",
-                                    }}
-                                >
-                                    <img
-                                        src={image ? URL.createObjectURL(image) : upload_icon}
-                                        alt="upload"
-                                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                    />
-                                </Form.Label>
-                                <Form.Control
-                                    type="file"
-                                    id="imageUpload"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                    hidden
-                                />
-                            </div>
-                        </Form.Group>
-                    </Col>
-                </Row>
+                        <Col xs={12} sm={6}>
+                            <Form.Group>
+                                <Form.Label>Image</Form.Label>
+                                <div className="d-flex align-items-center">
+                                    <Form.Label htmlFor="imageUpload" className="border rounded"
+                                        style={{
+                                            width: "56px", height: "56px", cursor: "pointer", overflow: "hidden",
+                                        }}>
+                                        <img
+                                            src={image ? URL.createObjectURL(image) : upload_icon} alt="upload"
+                                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                        />
+                                    </Form.Label>
+                                    <Form.Control type="file" id="imageUpload" accept="image/*" onChange={handleImageChange} hidden />
+                                </div>
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
-                <Form.Group className="mb-3">
-                    <Form.Label className="d-block">Size and Pricing</Form.Label>
-                    {prices.map((item, index) => (
-                        <Row key={index} className="mb-2 align-items-center">
-                            <Col xs={5}>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Size (S, M, L)"
-                                    value={item.size}
-                                    onChange={(e) => handleSizePriceChange(index, "size", e.target.value)}
-                                    required
-                                />
-                            </Col>
-                            <Col xs={5}>
-                                <Form.Control
-                                    type="number"
-                                    placeholder="Price"
-                                    value={item.price}
-                                    min={0}
-                                    onChange={(e) => handleSizePriceChange(index, "price", e.target.value)}
-                                    required
-                                />
-                            </Col>
-                            <Col xs={2}>
-                                <Button
-                                    variant="outline-danger"
-                                    className="w-100"
-                                    onClick={() => removeSizePrice(index)}
-                                >
-                                    <TbTrash />
-                                </Button>
-                            </Col>
-                        </Row>
-                    ))}
-                    <Button variant="secondary" size="sm" onClick={addSizePrice}>
-                        <FaPlus /> Add Sizing
+                    <Form.Group className="mb-3">
+                        <Form.Label className="d-block">Size and Pricing</Form.Label>
+                        {prices.map((item, index) => (
+                            <Row key={index} className="mb-2 align-items-center">
+                                <Col xs={5}>
+                                    <Form.Control type="text" placeholder="Size (S, M, L)" value={item.size} onChange={(e) => handleSizePriceChange(index, "size", e.target.value)} required />
+                                </Col>
+                                <Col xs={5}>
+                                    <Form.Control type="number" placeholder="Price" value={item.price} min={0} onChange={(e) => handleSizePriceChange(index, "price", e.target.value)} required />
+                                </Col>
+                                <Col xs={2}>
+                                    <Button variant="outline-danger" className="w-100" onClick={() => removeSizePrice(index)}>
+                                        <TbTrash />
+                                    </Button>
+                                </Col>
+                            </Row>
+                        ))}
+                        <Button variant="secondary" size="sm" onClick={addSizePrice}>
+                            <FaPlus /> Add Sizing
+                        </Button>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="popularCheckbox">
+                        <Form.Check type="checkbox" label="Add to popular" checked={popular} onChange={() => setPopular((prev) => !prev)} />
+                    </Form.Group>
+
+                    <Button type="submit" variant="dark" className="py-2">
+                        Add Product
                     </Button>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="popularCheckbox">
-                    <Form.Check
-                        type="checkbox"
-                        label="Add to popular"
-                        checked={popular}
-                        onChange={() => setPopular((prev) => !prev)}
-                    />
-                </Form.Group>
-
-                <Button type="submit" variant="dark" className="py-2">
-                    Add Product
-                </Button>
-            </Form>
-        </Container>
+                </Form>
+            </Container>
+        </>
     );
 };
 

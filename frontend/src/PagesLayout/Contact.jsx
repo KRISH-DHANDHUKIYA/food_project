@@ -34,13 +34,10 @@ const Contact = () => {
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
         } else {
-            // console.log("Form submitted:", formData);
-
             setFormData({ name: "", email: "", message: "" });
             setErrors({});
         }
     };
-
 
     return (
         <>

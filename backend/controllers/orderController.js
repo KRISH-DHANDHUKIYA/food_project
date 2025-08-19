@@ -96,7 +96,6 @@ const placeOrderStripe = async (req, res) => {
     }
 }
 
-
 const verifyStripe = async (req, res) => {
     try {
         const { success, orderId } = req.body;
@@ -130,7 +129,6 @@ const allOrders = async (req, res) => {
     }
 }
 
-
 const userOrders = async (req, res) => {
     try {
         const { userId } = req.body;
@@ -162,6 +160,5 @@ const updateStatus = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
-
 
 module.exports = { placeOrder, placeOrderStripe, verifyStripe, allOrders, userOrders, updateStatus }

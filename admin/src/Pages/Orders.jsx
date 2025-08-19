@@ -1,35 +1,3 @@
-// import { useEffect } from "react";
-// import { backendUrl } from "../App"
-// import axios from "axios"
-
-// const Orders = ({ token }) => {
-
-//     const fetchAllOrders = async () => {
-//         if (!token) {
-//             return null
-//         }
-//         try {
-//             const response = await axios.post(backendUrl + '/api/order/list', {}, { Headers: { token } })
-//             console.log(response.data);
-//         }
-//         catch (error) {
-//             console.log(error);
-//         }
-//     }
-
-//     useEffect(() => {
-//         fetchAllOrders()
-//     }, [])
-
-//     return (
-//         <>
-//             Orders
-//         </>
-//     )
-// }
-
-// export default Orders
-
 import { useEffect, useState } from "react";
 import { backendUrl, currency } from "../App";
 import axios from 'axios';
@@ -84,8 +52,6 @@ const Orders = ({ token }) => {
             toast.error(error.response?.data?.message || "Failed to update status");
         }
     };
-
-
 
     useEffect(() => {
         fetchAllOrders();
@@ -153,12 +119,7 @@ const Orders = ({ token }) => {
                                             <strong className="text-primary">Price:</strong> {currency}
                                             {order.amount}
                                         </p>
-                                        <Form.Select
-                                            size="sm"
-                                            value={order.status}
-                                            onChange={(e) => statusHandler(e, order._id)}
-                                            className="w-100"
-                                        >
+                                        <Form.Select size="sm" value={order.status} onChange={(e) => statusHandler(e, order._id)} className="w-100">
                                             <option value="Order Placed">Order Placed</option>
                                             <option value="Packing">Packing</option>
                                             <option value="Shipped">Shipped</option>
@@ -172,10 +133,8 @@ const Orders = ({ token }) => {
                     ))}
                 </Row>
             </Container>
-
         </>
     );
 };
 
 export default Orders;
-

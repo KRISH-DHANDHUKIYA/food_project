@@ -95,7 +95,7 @@ const ShopContextProvider = (props) => {
             } else {
                 toast.error(response.data.data.message || "Failed to fetch product list");
             }
-        } 
+        }
         catch (error) {
             // console.error(error);
             // toast.error(error.message || "Failed to fetch products");
@@ -111,21 +111,7 @@ const ShopContextProvider = (props) => {
         getProductsData();
     }, []);
 
-    const contextValue = {
-        foods,
-        currency,
-        delivery_charges,
-        navigate,
-        addToCart,
-        getCartCount,
-        cartItems,
-        setCartItems,
-        updateQuantity,
-        getCartAmount,
-        backendUrl,
-        token,
-        setToken
-    };
+    const contextValue = { foods, currency, delivery_charges, navigate, addToCart, getCartCount, cartItems, setCartItems, updateQuantity, getCartAmount, backendUrl, token, setToken };
 
     return (
         <>

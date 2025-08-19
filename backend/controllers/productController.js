@@ -60,8 +60,6 @@ const addProduct = async (req, res) => {
     }
 };
 
-
-
 const removeProduct = async (req, res) => {
     try {
         const { id } = req.body;
@@ -118,7 +116,6 @@ const listProduct = async (req, res) => {
     }
 };
 
-
 const singleProduct = async (req, res) => {
     try {
         const { productId } = req.body;
@@ -158,6 +155,5 @@ const singleProduct = async (req, res) => {
         });
     }
 };
-
 
 module.exports = { addProduct, removeProduct, listProduct, singleProduct }

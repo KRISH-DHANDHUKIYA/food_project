@@ -1,8 +1,5 @@
 const express = require('express');
-const {
-    placeOrder, placeOrderStripe, verifyStripe,
-    allOrders, userOrders, updateStatus
-} = require("../controllers/orderController");
+const { placeOrder, placeOrderStripe, verifyStripe, allOrders, userOrders, updateStatus } = require("../controllers/orderController");
 const adminAuth = require("../middleware/adminAuth");
 const authUser = require("../middleware/auth");
 

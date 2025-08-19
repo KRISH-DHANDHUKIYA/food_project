@@ -47,7 +47,6 @@ const Verify = () => {
         verifyPayment()
     }, [token])
 
-
     return (
         <>
             <Container className="text-center my-4">

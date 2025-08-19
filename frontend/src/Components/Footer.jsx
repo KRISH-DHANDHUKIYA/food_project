@@ -16,12 +16,7 @@ const Footer = () => {
 
                 <Form className="mt-3">
                   <InputGroup>
-                    <Form.Control
-                      type="email"
-                      placeholder="Enter your email"
-                      required
-                      className="footer-input"
-                    />
+                    <Form.Control type="email" placeholder="Enter your email" required className="footer-input" />
                     <Button variant="secondary" type="submit" className="footer-button" style={{ backgroundColor: "#347433" }}>
                       Subscribe
                     </Button>
